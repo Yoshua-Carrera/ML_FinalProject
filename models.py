@@ -20,15 +20,15 @@ print(df.columns)
 Logistic model
 
 Variables:
-    Red_TOP: Red Champion selection for the TOP role (string) 
+    ** Red_TOP: Red Champion selection for the TOP role (string) 
     Red_MID: Red Champion selection for the MID role (string) 
-    Red_ADC: Red Champion selection for the ADC role (string) 
-    Red_SUP: Red Champion selection for the SUP role (string) 
+    ** Red_ADC: Red Champion selection for the ADC role (string) 
+    ** Red_SUP: Red Champion selection for the SUP role (string) 
     Red_JUNG: Red Champion selection for the JUNG role (string) 
-    Blue_TOP: Blue Champion selection for the TOP role (string) 
+    ** Blue_TOP: Blue Champion selection for the TOP role (string) 
     Blue_MID: Blue Champion selection for the MID role (string) 
-    Blue_ADC: Blue Champion selection for the ADC role (string) 
-    Blue_SUP: Blue Champion selection for the SUP role (string) 
+    ** Blue_ADC: Blue Champion selection for the ADC role (string) 
+    ** Blue_SUP: Blue Champion selection for the SUP role (string) 
     Blue_JUNG: Blue Champion selection for the JUNG role (string)
     Red_Kills_pre15: number of kills before minute 15 for red (integer)
     Red_Towers_pre15: number of towers destroyed before minute 15 for red (integer)
@@ -60,3 +60,102 @@ y_pred = logit.predict(x_test)
 logit_accuracy = sum(y_pred==y_test)/len(y_test)
 
 print('Logistic model accuracy: {}'.format(logit_accuracy)) # 0.7355643044619422
+
+'''
+Decision Tree
+
+Variables:
+    ** Red_TOP: Red Champion selection for the TOP role (string) 
+    Red_MID: Red Champion selection for the MID role (string) 
+    ** Red_ADC: Red Champion selection for the ADC role (string) 
+    ** Red_SUP: Red Champion selection for the SUP role (string) 
+    Red_JUNG: Red Champion selection for the JUNG role (string) 
+    ** Blue_TOP: Blue Champion selection for the TOP role (string) 
+    Blue_MID: Blue Champion selection for the MID role (string) 
+    ** Blue_ADC: Blue Champion selection for the ADC role (string) 
+    ** Blue_SUP: Blue Champion selection for the SUP role (string) 
+    Blue_JUNG: Blue Champion selection for the JUNG role (string)
+    Red_Kills_pre15: number of kills before minute 15 for red (integer)
+    Red_Towers_pre15: number of towers destroyed before minute 15 for red (integer)
+    Red_dragons_pre15: number of dragons captured by minute 15 (integer)
+    Red_herald_pre15: herald captured by minute 15 for red (integer)
+    Gold_Diff_MIN_15: Diff in gold (red team - blue team) (integer)
+Target:
+    rResult: 1 if red team won (boolean)
+'''
+
+dTree = DecisionTreeClassifier()
+
+dTree.fit(x_train, y_train)
+
+y_pred = dTree.predict(x_test)
+
+dTree_accuracy = sum(y_pred==y_test)/len(y_test)
+
+print('Decision tree model accuracy: {}'.format(dTree_accuracy)) # 0.6437007874015748
+
+'''
+Random Forest
+
+Variables:
+    ** Red_TOP: Red Champion selection for the TOP role (string) 
+    Red_MID: Red Champion selection for the MID role (string) 
+    ** Red_ADC: Red Champion selection for the ADC role (string) 
+    ** Red_SUP: Red Champion selection for the SUP role (string) 
+    Red_JUNG: Red Champion selection for the JUNG role (string) 
+    ** Blue_TOP: Blue Champion selection for the TOP role (string) 
+    Blue_MID: Blue Champion selection for the MID role (string) 
+    ** Blue_ADC: Blue Champion selection for the ADC role (string) 
+    ** Blue_SUP: Blue Champion selection for the SUP role (string) 
+    Blue_JUNG: Blue Champion selection for the JUNG role (string)
+    Red_Kills_pre15: number of kills before minute 15 for red (integer)
+    Red_Towers_pre15: number of towers destroyed before minute 15 for red (integer)
+    Red_dragons_pre15: number of dragons captured by minute 15 (integer)
+    Red_herald_pre15: herald captured by minute 15 for red (integer)
+    Gold_Diff_MIN_15: Diff in gold (red team - blue team) (integer)
+Target:
+    rResult: 1 if red team won (boolean)
+'''
+
+rForest = RandomForestClassifier(n_estimators=100)
+
+rForest.fit(x_train, y_train)
+
+y_pred = rForest.predict(x_test)
+
+rForest_accuracy = sum(y_pred==y_test)/len(y_test)
+
+print('Decision tree model accuracy: {}'.format(rForest_accuracy)) # 0.7276902887139107
+
+'''
+Neural Network
+
+Variables:
+    ** Red_TOP: Red Champion selection for the TOP role (string) 
+    Red_MID: Red Champion selection for the MID role (string) 
+    ** Red_ADC: Red Champion selection for the ADC role (string) 
+    ** Red_SUP: Red Champion selection for the SUP role (string) 
+    Red_JUNG: Red Champion selection for the JUNG role (string) 
+    ** Blue_TOP: Blue Champion selection for the TOP role (string) 
+    Blue_MID: Blue Champion selection for the MID role (string) 
+    ** Blue_ADC: Blue Champion selection for the ADC role (string) 
+    ** Blue_SUP: Blue Champion selection for the SUP role (string) 
+    Blue_JUNG: Blue Champion selection for the JUNG role (string)
+    Red_Kills_pre15: number of kills before minute 15 for red (integer)
+    Red_Towers_pre15: number of towers destroyed before minute 15 for red (integer)
+    Red_dragons_pre15: number of dragons captured by minute 15 (integer)
+    Red_herald_pre15: herald captured by minute 15 for red (integer)
+    Gold_Diff_MIN_15: Diff in gold (red team - blue team) (integer)
+Target:
+    rResult: 1 if red team won (boolean)
+'''
+
+# rForest = (n_estimators=100)
+
+# rForest.fit(x_train, y_train)
+
+# y_pred = rForest.predict(x_test)
+
+# rForest_accuracy = sum(y_pred==y_test)/len(y_test)
+
+# print('Decision tree model accuracy: {}'.format(rForest_accuracy)) # 0.7276902887139107
