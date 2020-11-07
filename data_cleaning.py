@@ -9,8 +9,8 @@ print(df.info())
 
 game_mins = []
 
-for cols in df.columns:
-    print('\nDatapoint #10 in {}: \n==>\t{}'.format(cols, df[cols][10]))
+# for cols in df.columns:
+#     print('\nDatapoint #10 in {}: \n==>\t{}'.format(cols, df[cols][10]))
 
 print('\n' + '='*100)
 print('='*100, '\n')
@@ -24,11 +24,12 @@ champ_gold_cols = ['goldblueTop', 'goldblueMiddle', 'goldblueJungle', 'goldblueS
 # goldred - goldblue
 
 for cols in count_cols:
-    try:
+    if cols in ['goldred', 'goldblue']:
         df[cols] = df.apply(lambda row: json.loads(row[cols]), axis=1)
-    except:
+    else:
         df[cols] = df.apply(lambda row: ast.literal_eval(row[cols]), axis=1)
-        df[str(cols+'_pre15')] = df.apply(lambda row: [1 if int(i[0]) <= 15 else 0 for i in row[cols]], axis=1)
+        df[str(cols+'_pre15')] = df.apply(lambda row: sum([1 if int(i[0]) <= 15 else 0 for i in row[cols]]), axis=1)
+
 
 for cols in champ_gold_cols:
     df[cols] = df.apply(lambda row: json.loads(row[cols]), axis=1)
@@ -41,6 +42,7 @@ for rChampG, bChampG, Champ in zip(red_players_gold, blue_players_gold, players)
     df[Champ] = df.apply(lambda row: np.subtract(row[rChampG], row[bChampG]), axis=1)
     pass
 
+df['golddiff_min15'] = df.apply(lambda row: json.loads(row['golddiff'])[15], axis=1)
 
 for cols in df.columns:
     print('\nDatapoint #10 in {}: \n==>\t{}'.format(cols, df[cols][10]))
