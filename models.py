@@ -47,8 +47,16 @@ y = df['rResult']
 
 x = pd.get_dummies(x,['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleChamp'])
 
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+
 print(x.head())
 print(y.head())
 
 logit = LogisticRegression()
-logit.fit(x, y)
+logit.fit(x_train, y_train)
+
+y_pred = logit.predict(x_test)
+
+logit_accuracy = sum(y_pred==y_test)/len(y_test)
+
+print('Logistic model accuracy: {}'.format(logit_accuracy)) # 0.7355643044619422
