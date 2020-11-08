@@ -43,6 +43,7 @@ for rChampG, bChampG, Champ in zip(red_players_gold, blue_players_gold, players)
     pass
 
 df['golddiff_min15'] = df.apply(lambda row: json.loads(row['golddiff'])[15], axis=1)
+df['golddiff_final'] = df.apply(lambda row: json.loads(row['golddiff'])[-1], axis=1)
 
 for cols in df.columns:
     print('\nDatapoint #10 in {}: \n==>\t{}'.format(cols, df[cols][10]))
