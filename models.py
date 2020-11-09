@@ -9,6 +9,7 @@ from sklearn.ensemble import RandomForestClassifier, BaggingClassifier
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import confusion_matrix
 
 from keras.models import Sequential
 from keras.layers import Dense
@@ -66,6 +67,7 @@ y_pred = logit.predict(x_test)
 logit_accuracy = sum(y_pred==y_test)/len(y_test)
 
 print('Logistic model accuracy: {}'.format(logit_accuracy)) # 0.7355643044619422
+print('='*50 + 'Confusion matrix' + '='*50, confusion_matrix(y_test, y_pred))
 
 '''
 Decision Tree
@@ -99,6 +101,7 @@ y_pred = dTree.predict(x_test)
 dTree_accuracy = sum(y_pred==y_test)/len(y_test)
 
 print('Decision tree model accuracy: {}'.format(dTree_accuracy)) # 0.6437007874015748
+print('='*50 + 'Confusion matrix' + '='*50, confusion_matrix(y_test, y_pred))
 
 '''
 Random Forest
@@ -134,6 +137,7 @@ y_pred = rForest.predict(x_test)
 rForest_accuracy = sum(y_pred==y_test)/len(y_test)
 
 print('Random Forest model accuracy: {}'.format(rForest_accuracy)) # 0.7276902887139107
+print('='*50 + 'Confusion matrix' + '='*50, confusion_matrix(y_test, y_pred))
 
 '''
 SVM
@@ -167,6 +171,7 @@ y_pred = svm.predict(x_test)
 svm_accuracy = sum(y_pred==y_test)/len(y_test)
 
 print('SVM model accuracy: {}'.format(svm_accuracy)) # 0.7368766404199475
+print('='*50 + 'Confusion matrix' + '='*50, confusion_matrix(y_test, y_pred))
 
 '''
 Neural Network
@@ -220,6 +225,9 @@ history = nn.fit(x_train, y_train, epochs=500, batch_size=10) # 0.9826 (500 iter
 print(history.history.keys())
 
 nn.evaluate(x_test, y_test) # 0.6640
+y_pred = nn.predict(x_test)
+
+print('='*50 + 'Confusion matrix' + '='*50, confusion_matrix(y_test, y_pred))
 
 '''
 Linear regression
