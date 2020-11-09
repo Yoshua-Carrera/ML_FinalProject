@@ -7,10 +7,8 @@ df = pd.read_csv('LOL/LeagueofLegends.csv')
 
 print(df.info())
 
-game_mins = []
-
-# for cols in df.columns:
-#     print('\nDatapoint #10 in {}: \n==>\t{}'.format(cols, df[cols][10]))
+for cols in df.columns:
+    print('\nDatapoint #10 in {}: \n==>\t{}'.format(cols, df[cols][10]))
 
 print('\n' + '='*100)
 print('='*100, '\n')
