@@ -4,6 +4,22 @@ import json
 import ast
 
 df = pd.read_csv('LOL/LeagueofLegends.csv')
+df_champs =  pd.read_csv('LOL/riot_champion.csv')
+
+Champ_cols = ['blueJungleChamp', 'redJungleChamp', 'blueMiddleChamp', 'redMiddleChamp', 'blueADCChamp', 
+            'redADCChamp', 'blueSupportChamp', 'redSupportChamp', 'blueTopChamp', 'redTopChamp']
+
+New_Champ_cols = ['blueJungleChampTags', 'redJungleChampTags', 'blueMiddleChampTags', 'redMiddleChampTags', 'blueADCChampTags', 
+                'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 'blueTopChampTags', 'redTopChampTags']
+
+for role, roletag in zip(Champ_cols, New_Champ_cols):
+    df[roletag] = pd.merge(
+        df,
+        df_champs[['id', 'tags']], 
+        how='left', 
+        left_on=role, 
+        right_on = 'id'
+    )['tags']  
 
 print(df.info())
 
@@ -42,6 +58,8 @@ for rChampG, bChampG, Champ in zip(red_players_gold, blue_players_gold, players)
 
 df['golddiff_min15'] = df.apply(lambda row: json.loads(row['golddiff'])[15], axis=1)
 df['golddiff_final'] = df.apply(lambda row: json.loads(row['golddiff'])[-1], axis=1)
+
+# Data join #
 
 for cols in df.columns:
     print('\nDatapoint #10 in {}: \n==>\t{}'.format(cols, df[cols][10]))
