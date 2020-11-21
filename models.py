@@ -191,15 +191,9 @@ pickle.dump(svm, open('models/svm.pkl', 'wb'))
 Neural Network
 
 Variables:
-    ** Red_TOP: Red Champion selection for the TOP role (string) 
     Red_MID: Red Champion selection for the MID role (string) 
-    ** Red_ADC: Red Champion selection for the ADC role (string) 
-    ** Red_SUP: Red Champion selection for the SUP role (string) 
     Red_JUNG: Red Champion selection for the JUNG role (string) 
-    ** Blue_TOP: Blue Champion selection for the TOP role (string) 
     Blue_MID: Blue Champion selection for the MID role (string) 
-    ** Blue_ADC: Blue Champion selection for the ADC role (string) 
-    ** Blue_SUP: Blue Champion selection for the SUP role (string) 
     Blue_JUNG: Blue Champion selection for the JUNG role (string)
     Red_Kills_pre15: number of kills before minute 15 for red (integer)
     Red_Towers_pre15: number of towers destroyed before minute 15 for red (integer)
@@ -234,16 +228,14 @@ nn.add(Dense(1, activation='sigmoid'))
 nn.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 nn.summary()
 
-history = nn.fit(x_train, y_train, epochs=100, batch_size=10) # 0.9826 (500 iterations)
+history = nn.fit(x_train, y_train, epochs=10, batch_size=10) # 0.9826 (500 iterations)
 
 print(history.history.keys())
 
 nn.evaluate(x_test, y_test) # 0.6640
 y_pred = nn.predict(x_test)
 
-# print('='*50 + 'Confusion matrix' + '='*50, '\n', confusion_matrix(y_test, y_pred))
-
-# pickle.dump(nn, open('models/nn.pkl', 'wb'))
+nn.save('models/nn')
 
 '''
 Linear regression
