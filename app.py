@@ -32,7 +32,6 @@ def predict():
        'redJungleChamp_Zac']
     '''
     features = [y+x.capitalize() if y != '' else int(x) for x, y in zip(request.form.values(), ['', '', '', '', '', 'redMiddleChamp_', 'redJungleChamp_', 'blueMiddleChamp_', 'blueJungleChamp_'])]
-    final_features = [np.array(features)]
     input_array = [0]*len(x.columns)
 
     for i in range(len(x.columns)):
@@ -44,7 +43,13 @@ def predict():
         else:
             input_array[i] = 0
 
-    return render_template('index.html', prediction_text='Your probability of winning is: {} from {}'.format(final_features, input_array))
+    prediction = model.predict_proba([np.array(input_array)])
+    print([np.array(input_array)])
+    print(prediction)
+    print(model.predict([np.array(input_array)])[0])
+    output = round(prediction[0][1], 3)
+
+    return render_template('index.html', prediction_text='Your probability of winning is: {:.4%} for the input: {}'.format(output, features))
 
 @app.route('/predict_api', methods=['POST'])
 def predict_api():

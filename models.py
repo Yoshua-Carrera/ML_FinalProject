@@ -38,16 +38,6 @@ x = pd.get_dummies(x, columns=['blueMiddleChamp', 'blueJungleChamp', 'redMiddleC
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
 # print(df.columns)
 print(x_train.columns)
-print(y.head())
-
-input_list = [0]*269
-
-for i in range(len(x_train.columns)):
-    if x_train.columns[i] == 'blueMiddleChamp_Ahri':
-        input_list[i] = 1
-
-    # print(x_train.columns[i])
-print(input_list)
 
 '''
 Logistic model
@@ -183,11 +173,15 @@ Target:
     rResult: 1 if red team won (boolean)
 '''
 
-svm = SVC()
+svm = SVC(probability=True)
 
 svm.fit(x_train, y_train)
 
 y_pred = svm.predict(x_test)
+
+print(x_test.head(1))
+
+print(svm.predict_proba(x_test.head(1))[0])
 
 svm_accuracy = sum(y_pred==y_test)/len(y_test)
 
