@@ -15,6 +15,8 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras import metrics
 
+import pickle
+
 """ 
 Please run the data_cleaning script ONCE before running this one
 
@@ -29,7 +31,9 @@ x_cols = ['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleCham
 x = df[x_cols]
 y = df['rResult']
 
-x = pd.get_dummies(x,['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleChamp'])
+x = pd.get_dummies(x, columns=['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleChamp'])
+
+print(x.columns)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
 print(df.columns)
@@ -67,7 +71,10 @@ y_pred = logit.predict(x_test)
 logit_accuracy = sum(y_pred==y_test)/len(y_test)
 
 print('Logistic model accuracy: {}'.format(logit_accuracy)) # 0.7355643044619422
-print('='*50 + 'Confusion matrix' + '='*50, confusion_matrix(y_test, y_pred))
+print('='*50 + 'Confusion matrix' + '='*50, '\n', confusion_matrix(y_test, y_pred))
+
+pickle.dump(logit, open('models/logit.pkl', 'wb'))
+
 
 '''
 Decision Tree
@@ -101,7 +108,10 @@ y_pred = dTree.predict(x_test)
 dTree_accuracy = sum(y_pred==y_test)/len(y_test)
 
 print('Decision tree model accuracy: {}'.format(dTree_accuracy)) # 0.6437007874015748
-print('='*50 + 'Confusion matrix' + '='*50, confusion_matrix(y_test, y_pred))
+print('='*50 + 'Confusion matrix' + '='*50, '\n', confusion_matrix(y_test, y_pred))
+
+pickle.dump(dTree, open('models/dTree.pkl', 'wb'))
+
 
 '''
 Random Forest
@@ -137,7 +147,9 @@ y_pred = rForest.predict(x_test)
 rForest_accuracy = sum(y_pred==y_test)/len(y_test)
 
 print('Random Forest model accuracy: {}'.format(rForest_accuracy)) # 0.7276902887139107
-print('='*50 + 'Confusion matrix' + '='*50, confusion_matrix(y_test, y_pred))
+print('='*50 + 'Confusion matrix' + '='*50, '\n', confusion_matrix(y_test, y_pred))
+
+pickle.dump(rForest, open('models/rForest.pkl', 'wb'))
 
 '''
 SVM
@@ -171,7 +183,9 @@ y_pred = svm.predict(x_test)
 svm_accuracy = sum(y_pred==y_test)/len(y_test)
 
 print('SVM model accuracy: {}'.format(svm_accuracy)) # 0.7368766404199475
-print('='*50 + 'Confusion matrix' + '='*50, confusion_matrix(y_test, y_pred))
+print('='*50 + 'Confusion matrix' + '='*50, '\n', confusion_matrix(y_test, y_pred))
+
+pickle.dump(svm, open('models/svm.pkl', 'wb'))
 
 '''
 Neural Network
@@ -195,11 +209,11 @@ Variables:
 Target:
     rResult: 1 if red team won (boolean)
 Architecture:
-    1 dense layer: 10 relu
-    2 dense layer: 50 relu
-    3 dense layer: 10 relu
-    4 dense layer: 5 relu
-    5 dense layer: 1 Sigmoid
+    * dense layer: 10 relu
+    * dense layer: 10 relu
+    * dense layer: 10 relu
+    * dense layer: 5 relu
+    * dense layer: 1 Sigmoid
 '''
 
 scalar = MinMaxScaler()
@@ -212,7 +226,7 @@ x_train, x_test, y_train, y_test = train_test_split(x_nn, y, test_size=0.2, rand
 nn = Sequential()
 print('xtrain lenght: {}'.format(len(x_train[0])))
 nn.add(Dense(10, input_dim=len(x_train[0]), activation='relu'))
-nn.add(Dense(50, activation='relu'))
+nn.add(Dense(10, activation='relu'))
 nn.add(Dense(10, activation='relu'))
 nn.add(Dense(5, activation='relu'))
 nn.add(Dense(1, activation='sigmoid'))
@@ -220,14 +234,16 @@ nn.add(Dense(1, activation='sigmoid'))
 nn.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 nn.summary()
 
-history = nn.fit(x_train, y_train, epochs=500, batch_size=10) # 0.9826 (500 iterations)
+history = nn.fit(x_train, y_train, epochs=100, batch_size=10) # 0.9826 (500 iterations)
 
 print(history.history.keys())
 
 nn.evaluate(x_test, y_test) # 0.6640
 y_pred = nn.predict(x_test)
 
-print('='*50 + 'Confusion matrix' + '='*50, confusion_matrix(y_test, y_pred))
+# print('='*50 + 'Confusion matrix' + '='*50, '\n', confusion_matrix(y_test, y_pred))
+
+# pickle.dump(nn, open('models/nn.pkl', 'wb'))
 
 '''
 Linear regression
@@ -253,7 +269,7 @@ Target:
 '''
 
 x = df[x_cols]
-x = pd.get_dummies(x,['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleChamp'])
+x = pd.get_dummies(x,columns=['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleChamp'])
 
 y = df['golddiff_final']
 
@@ -265,3 +281,5 @@ linear_model.fit(x_train, y_train)
 y_pred = linear_model.predict(x_test)
 
 print('linear model R^2: {}'.format(linear_model.score(x_test, y_test))) # 0.4371161384443095
+
+pickle.dump(linear_model, open('models/linear_model.pkl', 'wb'))
