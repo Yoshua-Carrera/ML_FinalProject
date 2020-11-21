@@ -33,12 +33,21 @@ y = df['rResult']
 
 x = pd.get_dummies(x, columns=['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleChamp'])
 
-print(x.columns)
+# print(x.columns)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
-print(df.columns)
-print(x.head())
+# print(df.columns)
+print(x_train.columns)
 print(y.head())
+
+input_list = [0]*269
+
+for i in range(len(x_train.columns)):
+    if x_train.columns[i] == 'blueMiddleChamp_Ahri':
+        input_list[i] = 1
+
+    # print(x_train.columns[i])
+print(input_list)
 
 '''
 Logistic model

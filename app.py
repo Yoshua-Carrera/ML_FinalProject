@@ -1,21 +1,50 @@
 # This is the app
 import numpy as np
+import pandas as pd
 from flask import Flask, request, jsonify, render_template
 import pickle
 
 app = Flask(__name__)
 model = pickle.load(open('models/svm.pkl', 'rb'))
+df = pd.read_csv('LOL/Clean_LeagueofLegends.csv')
+
+x_cols = ['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleChamp',
+        'rKills_pre15', 'rTowers_pre15', 'rDragons_pre15','rHeralds_pre15', 'golddiff_min15']
+x = df[x_cols]
+x = pd.get_dummies(x, columns=['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleChamp'])
 
 @app.route('/')
 def home():
-        return render_template('index.html')
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
     '''
-    For rendering results on HTML GUI
-    :return:
+    ['rKills_pre15', 'rTowers_pre15', 'rDragons_pre15', 'rHeralds_pre15',
+       'golddiff_min15', 'blueMiddleChamp_Ahri', 'blueMiddleChamp_Akali',  
+       'blueMiddleChamp_Anivia', 'blueMiddleChamp_AurelionSol',
+       'blueMiddleChamp_Azir',
+       ...
+       'redJungleChamp_Shyvana', 'redJungleChamp_Sion',
+       'redJungleChamp_Skarner', 'redJungleChamp_Trundle',
+       'redJungleChamp_Udyr', 'redJungleChamp_Vi', 'redJungleChamp_Volibear',
+       'redJungleChamp_Warwick', 'redJungleChamp_XinZhao',
+       'redJungleChamp_Zac']
     '''
+    features = [y+x.capitalize() if y != '' else int(x) for x, y in zip(request.form.values(), ['', '', '', '', '', 'redMiddleChamp_', 'redJungleChamp_', 'blueMiddleChamp_', 'blueJungleChamp_'])]
+    final_features = [np.array(features)]
+    input_array = [0]*len(x.columns)
+
+    for i in range(len(x.columns)):
+        if pd.Series.between(i, 0, 4):
+            input_array[i] = features[i]
+        elif x.columns[i] in features:
+            print('champ {} in {}'.format(x.columns[i], i))
+            input_array[i] = 1    
+        else:
+            input_array[i] = 0
+
+    return render_template('index.html', prediction_text='Your probability of winning is: {} from {}'.format(final_features, input_array))
 
 @app.route('/predict_api', methods=['POST'])
 def predict_api():
