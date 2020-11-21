@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ML Project</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+<div class="login">
+    <h1>Welcome to League of Legend Win Win Prediction!</h1>
+    <form action="{{url_for('predict')}}" method="post">
+
+        <input type="test" name="RedTeamMiddle" placeholder ="Red Team Middle" required="required"/>
+        <input type="test" name="RedTeamJG" placeholder ="Red Team Jungle" required="required"/>
+        <input type="test" name="BlueTeamMiddle" placeholder ="Blue Team Middle" required="required"/>
+        <input type="test" name="BlueTeamJG" placeholder ="Blue Team Jungle" required="required"/>
+        <input type="test" name="Kills" placeholder ="Your Team Number of Kill(s)" required="required"/>
+        <input type="test" name="Towers" placeholder ="Your Team Number of Tower(s) Taken" required="required"/>
+        <input type="test" name="GoldDiff" placeholder ="Your Team Gold Difference at the moment" required="required"/>
+        <input type="test" name="Dragon" placeholder ="Your Number of Dragon(s) Kill" required="required"/>
+        <input type="test" name="Herald" placeholder ="Did you take Rift Herald (Y/N)" required="required"/>
+
+    <button type="submit" class="btn btn-primary btn-block btn-large">Predict!</button>
+
+    </form>
+
+    <br>
+    <br>
+
+    {{prediction_text}}
+
+</div>
+
+</body>
+</html>
