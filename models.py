@@ -28,16 +28,19 @@ df = pd.read_csv('LOL/Clean_LeagueofLegends.csv')
 x_cols = ['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleChamp',
           'rKills_pre15', 'rTowers_pre15', 'rDragons_pre15','rHeralds_pre15', 'golddiff_min15']
 
-x = df[x_cols]
+x_cols_v2 = ['blueJungleChampTags', 'redJungleChampTags', 'blueMiddleChampTags', 'redMiddleChampTags', 
+            'blueADCChampTags', 'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 
+            'blueTopChampTags', 'redTopChampTags', 'rKills_pre15', 'rTowers_pre15', 'rDragons_pre15',
+            'rHeralds_pre15', 'golddiff_min15']
+
+x = df[x_cols_v2]
 y = df['rResult']
 
-x = pd.get_dummies(x, columns=['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleChamp'])
-
-# print(x.columns)
+x = pd.get_dummies(x, columns=['blueJungleChampTags', 'redJungleChampTags', 'blueMiddleChampTags', 'redMiddleChampTags', 
+                                'blueADCChampTags', 'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 
+                                'blueTopChampTags', 'redTopChampTags'])
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
-# print(df.columns)
-print(x_train.columns)
 
 '''
 Logistic model
@@ -231,7 +234,7 @@ nn.add(Dense(1, activation='sigmoid'))
 nn.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 nn.summary()
 
-history = nn.fit(x_train, y_train, epochs=10, batch_size=10) # 0.9826 (500 iterations)
+history = nn.fit(x_train, y_train, epochs=150, batch_size=10)
 
 print(history.history.keys())
 
