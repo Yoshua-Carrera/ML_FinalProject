@@ -6,6 +6,15 @@ import ast
 df = pd.read_csv('LOL/LeagueofLegends.csv')
 df_champs =  pd.read_csv('LOL/riot_champion.csv')
 
+champion_tags = {}
+
+for row in range(len(df_champs)):
+    champion_tags[df_champs['name'][row]] = df_champs['tags'][row]
+
+
+with open('championdata/Champion_tag.json', 'w') as fp:
+    json.dump(champion_tags, fp, indent=4)
+
 Champ_cols = ['blueJungleChamp', 'redJungleChamp', 'blueMiddleChamp', 'redMiddleChamp', 'blueADCChamp', 
             'redADCChamp', 'blueSupportChamp', 'redSupportChamp', 'blueTopChamp', 'redTopChamp']
 
@@ -65,3 +74,12 @@ for cols in df.columns:
     print('\nDatapoint #10 in {}: \n==>\t{}'.format(cols, df[cols][10]))
 
 df.to_csv('LOL/Clean_LeagueofLegends.csv')
+
+champion_tags = {}
+
+for row in range(len(df_champs)):
+    champion_tags[df_champs['name'][row]] = champion_tags[df_champs['tags'][row]]
+
+
+with open('championdata/Champion_tag.json', 'w') as fp:
+    json.dump(champion_tags, fp)
