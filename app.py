@@ -47,7 +47,7 @@ def predict():
     for i in range(5, len(user_response)+1):
         user_response[i] = role_dict[user_response[i]]
     
-    features = [y+x.capitalize() if y != '' else int(x) for x, y in zip(request.form.values(), ['', '', '', '', '', 
+    features = [y+x.capitalize() if y != '' else int(x) for x, y in zip(user_response, ['', '', '', '', '', 
                                                                                                 'redTopChamp_', 'redMiddleChamp_', 'redJungleChamp_', 'redADCChamp_', 'redSupportChamp_', 
                                                                                                  'blueTopChamp_', 'blueMiddleChamp_', 'blueJungleChamp_', 'blueADCChamp_', 'blueSupportChamp_'])]
     input_array = [0]*len(x.columns)
