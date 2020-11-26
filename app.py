@@ -3,10 +3,21 @@ import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
 import pickle
+import ast
+import json
 
 app = Flask(__name__)
 model = pickle.load(open('models/svm.pkl', 'rb'))
 df = pd.read_csv('LOL/Clean_LeagueofLegends.csv')
+
+with open('championdata/Champion_role.json') as f:
+    role_dict = json.load(f)
+
+with open('championdata/Champion_tag.json') as f:
+    tag_dict = json.load(f)
+
+for role in role_dict:
+    role_dict[role] = ast.literal_eval(role_dict[role])
 
 x_cols = ['blueMiddleChamp', 'blueJungleChamp', 'redMiddleChamp', 'redJungleChamp',
         'rKills_pre15', 'rTowers_pre15', 'rDragons_pre15','rHeralds_pre15', 'golddiff_min15']
@@ -31,7 +42,14 @@ def predict():
        'redJungleChamp_Warwick', 'redJungleChamp_XinZhao',
        'redJungleChamp_Zac']
     '''
-    features = [y+x.capitalize() if y != '' else int(x) for x, y in zip(request.form.values(), ['', '', '', '', '', 'redMiddleChamp_', 'redJungleChamp_', 'blueMiddleChamp_', 'blueJungleChamp_'])]
+    user_response = request.form.values()
+    
+    for i in range(5, len(user_response)+1):
+        user_response[i] = role_dict[user_response[i]]
+    
+    features = [y+x.capitalize() if y != '' else int(x) for x, y in zip(request.form.values(), ['', '', '', '', '', 
+                                                                                                'redTopChamp_', 'redMiddleChamp_', 'redJungleChamp_', 'redADCChamp_', 'redSupportChamp_', 
+                                                                                                 'blueTopChamp_', 'blueMiddleChamp_', 'blueJungleChamp_', 'blueADCChamp_', 'blueSupportChamp_'])]
     input_array = [0]*len(x.columns)
 
     for i in range(len(x.columns)):
