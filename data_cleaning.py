@@ -2,18 +2,11 @@ import pandas as pd
 import numpy as np
 import json
 import ast
+from pprint import pprint
 
 df = pd.read_csv('LOL/LeagueofLegends.csv')
+
 df_champs =  pd.read_csv('LOL/riot_champion.csv')
-
-champion_tags = {}
-
-for row in range(len(df_champs)):
-    champion_tags[df_champs['name'][row]] = df_champs['tags'][row]
-
-
-with open('championdata/Champion_tag.json', 'w') as fp:
-    json.dump(champion_tags, fp, indent=4)
 
 Champ_cols = ['blueJungleChamp', 'redJungleChamp', 'blueMiddleChamp', 'redMiddleChamp', 'blueADCChamp', 
             'redADCChamp', 'blueSupportChamp', 'redSupportChamp', 'blueTopChamp', 'redTopChamp']
@@ -83,3 +76,26 @@ for row in range(len(df_champs)):
 
 with open('championdata/Champion_tag.json', 'w') as fp:
     json.dump(champion_tags, fp)
+
+champion_tags = {}
+
+for row in range(len(df_champs)):
+    champion_tags[df_champs['name'][row]] = df_champs['tags'][row]
+
+with open('championdata/Champion_tag.json', 'w') as fp:
+    json.dump(champion_tags, fp, indent=4)
+
+champion_roles = {}
+
+for role in ['Jungle', 'Middle', 'ADC', 'Top', 'Support']:
+    champion_roles[role] = str(set(
+        pd.concat(
+            [
+                df['blue' + role + 'Champ'], 
+                df['red' + role + 'Champ']
+            ]
+        )
+    )).replace('{', '[').replace('}', ']')
+
+with open('championdata/Champion_role.json', 'w') as fp:
+    json.dump(champion_roles, fp, indent=4)
