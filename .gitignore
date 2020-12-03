@@ -138,5 +138,5 @@ LeagueML.pem
 
 # Pickle models
 
-models/
-.pkl
+models
+*.pkl
