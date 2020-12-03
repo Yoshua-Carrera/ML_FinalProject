@@ -1,48 +1,115 @@
-*{
+* {
     margin: 0 auto;
-
 }
-.row{
+.row {
+    height: 120vh;
+    width: 101%;
+    background-image: url("assets/league_nice.png");
+    background-size: cover; 
+    box-sizing: border-box;
+    position: relative;
+}
+
+.bg {
     height: 100vh;
     width: 100%;
-    background-image: url("mainbackground.png");
-    background-position: center;
+    background-image: url("assets/mainbackground.png");
     background-size: cover;
     box-sizing: border-box;
     position: relative;
 }
-.col-md-12{
+
+.col-md-12 {
     font-style: italic;
     text-align: center;
     font-size: x-large;
 }
-.input{
+
+.input {
     width: 50%;
     column-count: 2;
 }
 
-.btn{
-   margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-
+.btn {
+    margin: 0;
+    position: absolute;
+    width: 200;
+    height: 50;
+    top: 105.5%;
+    left: 51.25%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
-.result{
-     text-align: center;
+
+.result {
+    text-align: center;
     font-size: x-large;
 }
-.left-col{
+
+.left-col {
     width: 50%;
     float: left;
     padding-left: 300px;
-
 }
 
-.right-col{
+.right-col {
     width: 50%;
     float: left;
     padding-left: 150px;
 }
+
+.redTop {
+    position: absolute;
+    top: 16%;
+    left: 10.2%;
+}
+
+.redJG {
+    position: absolute;
+    top: 27.5%;
+    left: 7.5%;
+}
+
+.redMid {
+    position: absolute;
+    top: 38.5%;
+    left: 7.5%;
+}
+
+.redAD {
+    position: absolute;
+    top: 49.5%;
+    left: 7.5%;
+}
+
+.redSup {
+    position: absolute;
+    top: 61%;
+    left: 7.5%;
+}
+
+.blueTop {
+    position: absolute;
+    top: 16%;
+    right: 4%;}
+
+.blueJG {
+    position: absolute;
+    top: 27.5%;
+    right: 4%;}
+
+ .blueMid {
+    position: absolute;
+    top: 38.5%;
+    right: 4%;}
+
+.blueAD {
+    position: absolute;
+    top: 49.5%;
+    right: 4%;}
+
+.blueSup {
+    position: absolute;
+    top: 61%;
+    right: 4%;}
+

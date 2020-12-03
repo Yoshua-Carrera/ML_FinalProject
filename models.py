@@ -9,13 +9,15 @@ from sklearn.ensemble import RandomForestClassifier, BaggingClassifier
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, plot_confusion_matrix
 
 from keras.models import Sequential
 from keras.layers import Dense
 from keras import metrics
 
 import pickle
+
+from matplotlib import pyplot as plt
 
 """ 
 Please run the data_cleaning script ONCE before running this one
@@ -46,21 +48,22 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 Logistic model
 
 Variables:
-    ** Red_TOP: Red Champion selection for the TOP role (string) 
-    Red_MID: Red Champion selection for the MID role (string) 
-    ** Red_ADC: Red Champion selection for the ADC role (string) 
-    ** Red_SUP: Red Champion selection for the SUP role (string) 
-    Red_JUNG: Red Champion selection for the JUNG role (string) 
-    ** Blue_TOP: Blue Champion selection for the TOP role (string) 
-    Blue_MID: Blue Champion selection for the MID role (string) 
-    ** Blue_ADC: Blue Champion selection for the ADC role (string) 
-    ** Blue_SUP: Blue Champion selection for the SUP role (string) 
-    Blue_JUNG: Blue Champion selection for the JUNG role (string)
+    redJungleChampTags: Red Champion selection for the Jungle role (string) 
+    redMiddlehampTags: Red Champion selection for the Middle role (string) 
+    redTopChampTags: Red Champion selection for the Top role (string) 
+    redADCChampTags: Red Champion selection for the ADC role (string) 
+    redSupportChampTags: Red Champion selection for the Support role (string) 
+    blueJungleChampTags: Blue Champion selection for the Jungle role (string)
+    blueMiddlehampTags: Blue Champion selection for the Middle role (string)
+    blueTopChampTags: Blue Champion selection for the Top role (string)
+    blueADCChampTags: Blue Champion selection for the ADC role (string)
+    blueSupportChampTags: Blue Champion selection for the Support role (string)
     Red_Kills_pre15: number of kills before minute 15 for red (integer)
     Red_Towers_pre15: number of towers destroyed before minute 15 for red (integer)
     Red_dragons_pre15: number of dragons captured by minute 15 (integer)
     Red_herald_pre15: herald captured by minute 15 for red (integer)
     Gold_Diff_MIN_15: Diff in gold (red team - blue team) (integer)
+
 Target:
     rResult: 1 if red team won (boolean)
 '''
@@ -77,27 +80,39 @@ print('='*50 + 'Confusion matrix' + '='*50, '\n', confusion_matrix(y_test, y_pre
 
 pickle.dump(logit, open('models/logit.pkl', 'wb'))
 
+titles_options = [("Logit Confusion matrix, without normalization", None),
+                  ("Logit Normalized confusion matrix", 'true')]
+
+for title, normalize in titles_options:
+    disp = plot_confusion_matrix(logit, x_test, y_test,
+                                 display_labels=['Victory', 'Defeat'],
+                                 cmap=plt.cm.Blues,
+                                 normalize=normalize)
+    disp.ax_.set_title(title)
+
+plt.show()
 
 '''
 Decision Tree
 
 Variables:
-    ** Red_TOP: Red Champion selection for the TOP role (string) 
-    Red_MID: Red Champion selection for the MID role (string) 
-    ** Red_ADC: Red Champion selection for the ADC role (string) 
-    ** Red_SUP: Red Champion selection for the SUP role (string) 
-    Red_JUNG: Red Champion selection for the JUNG role (string) 
-    ** Blue_TOP: Blue Champion selection for the TOP role (string) 
-    Blue_MID: Blue Champion selection for the MID role (string) 
-    ** Blue_ADC: Blue Champion selection for the ADC role (string) 
-    ** Blue_SUP: Blue Champion selection for the SUP role (string) 
-    Blue_JUNG: Blue Champion selection for the JUNG role (string)
+    redJungleChampTags: Red Champion selection for the Jungle role (string) 
+    redMiddlehampTags: Red Champion selection for the Middle role (string) 
+    redTopChampTags: Red Champion selection for the Top role (string) 
+    redADCChampTags: Red Champion selection for the ADC role (string) 
+    redSupportChampTags: Red Champion selection for the Support role (string) 
+    blueJungleChampTags: Blue Champion selection for the Jungle role (string)
+    blueMiddlehampTags: Blue Champion selection for the Middle role (string)
+    blueTopChampTags: Blue Champion selection for the Top role (string)
+    blueADCChampTags: Blue Champion selection for the ADC role (string)
+    blueSupportChampTags: Blue Champion selection for the Support role (string)
     Red_Kills_pre15: number of kills before minute 15 for red (integer)
     Red_Towers_pre15: number of towers destroyed before minute 15 for red (integer)
     Red_dragons_pre15: number of dragons captured by minute 15 (integer)
     Red_herald_pre15: herald captured by minute 15 for red (integer)
     Gold_Diff_MIN_15: Diff in gold (red team - blue team) (integer)
-Target:
+
+Target:    
     rResult: 1 if red team won (boolean)
 '''
 
@@ -114,28 +129,40 @@ print('='*50 + 'Confusion matrix' + '='*50, '\n', confusion_matrix(y_test, y_pre
 
 pickle.dump(dTree, open('models/dTree.pkl', 'wb'))
 
+titles_options = [("Decision tree Confusion matrix, without normalization", None),
+                  ("Decision tree Normalized confusion matrix", 'true')]
 
+for title, normalize in titles_options:
+    disp = plot_confusion_matrix(dTree, x_test, y_test,
+                                 display_labels=['Victory', 'Defeat'],
+                                 cmap=plt.cm.Blues,
+                                 normalize=normalize)
+    disp.ax_.set_title(title)
+
+plt.show()
 '''
 Random Forest
 
 Variables:
-    ** Red_TOP: Red Champion selection for the TOP role (string) 
-    Red_MID: Red Champion selection for the MID role (string) 
-    ** Red_ADC: Red Champion selection for the ADC role (string) 
-    ** Red_SUP: Red Champion selection for the SUP role (string) 
-    Red_JUNG: Red Champion selection for the JUNG role (string) 
-    ** Blue_TOP: Blue Champion selection for the TOP role (string) 
-    Blue_MID: Blue Champion selection for the MID role (string) 
-    ** Blue_ADC: Blue Champion selection for the ADC role (string) 
-    ** Blue_SUP: Blue Champion selection for the SUP role (string) 
-    Blue_JUNG: Blue Champion selection for the JUNG role (string)
+    redJungleChampTags: Red Champion selection for the Jungle role (string) 
+    redMiddlehampTags: Red Champion selection for the Middle role (string) 
+    redTopChampTags: Red Champion selection for the Top role (string) 
+    redADCChampTags: Red Champion selection for the ADC role (string) 
+    redSupportChampTags: Red Champion selection for the Support role (string) 
+    blueJungleChampTags: Blue Champion selection for the Jungle role (string)
+    blueMiddlehampTags: Blue Champion selection for the Middle role (string)
+    blueTopChampTags: Blue Champion selection for the Top role (string)
+    blueADCChampTags: Blue Champion selection for the ADC role (string)
+    blueSupportChampTags: Blue Champion selection for the Support role (string)
     Red_Kills_pre15: number of kills before minute 15 for red (integer)
     Red_Towers_pre15: number of towers destroyed before minute 15 for red (integer)
     Red_dragons_pre15: number of dragons captured by minute 15 (integer)
     Red_herald_pre15: herald captured by minute 15 for red (integer)
     Gold_Diff_MIN_15: Diff in gold (red team - blue team) (integer)
-Target:
+
+Target:    
     rResult: 1 if red team won (boolean)
+
 Number of trees:
     100
 '''
@@ -153,26 +180,38 @@ print('='*50 + 'Confusion matrix' + '='*50, '\n', confusion_matrix(y_test, y_pre
 
 pickle.dump(rForest, open('models/rForest.pkl', 'wb'))
 
+titles_options = [("Random forest Confusion matrix, without normalization", None),
+                  ("Random forest Normalized confusion matrix", 'true')]
+
+for title, normalize in titles_options:
+    disp = plot_confusion_matrix(rForest, x_test, y_test,
+                                 display_labels=['Victory', 'Defeat'],
+                                 cmap=plt.cm.Blues,
+                                 normalize=normalize)
+    disp.ax_.set_title(title)
+
+plt.show()
 '''
 SVM
 
 Variables:
-    ** Red_TOP: Red Champion selection for the TOP role (string) 
-    Red_MID: Red Champion selection for the MID role (string) 
-    ** Red_ADC: Red Champion selection for the ADC role (string) 
-    ** Red_SUP: Red Champion selection for the SUP role (string) 
-    Red_JUNG: Red Champion selection for the JUNG role (string) 
-    ** Blue_TOP: Blue Champion selection for the TOP role (string) 
-    Blue_MID: Blue Champion selection for the MID role (string) 
-    ** Blue_ADC: Blue Champion selection for the ADC role (string) 
-    ** Blue_SUP: Blue Champion selection for the SUP role (string) 
-    Blue_JUNG: Blue Champion selection for the JUNG role (string)
+    redJungleChampTags: Red Champion selection for the Jungle role (string) 
+    redMiddlehampTags: Red Champion selection for the Middle role (string) 
+    redTopChampTags: Red Champion selection for the Top role (string) 
+    redADCChampTags: Red Champion selection for the ADC role (string) 
+    redSupportChampTags: Red Champion selection for the Support role (string) 
+    blueJungleChampTags: Blue Champion selection for the Jungle role (string)
+    blueMiddlehampTags: Blue Champion selection for the Middle role (string)
+    blueTopChampTags: Blue Champion selection for the Top role (string)
+    blueADCChampTags: Blue Champion selection for the ADC role (string)
+    blueSupportChampTags: Blue Champion selection for the Support role (string)
     Red_Kills_pre15: number of kills before minute 15 for red (integer)
     Red_Towers_pre15: number of towers destroyed before minute 15 for red (integer)
     Red_dragons_pre15: number of dragons captured by minute 15 (integer)
     Red_herald_pre15: herald captured by minute 15 for red (integer)
     Gold_Diff_MIN_15: Diff in gold (red team - blue team) (integer)
-Target:
+
+Target:    
     rResult: 1 if red team won (boolean)
 '''
 
@@ -193,21 +232,40 @@ print('='*50 + 'Confusion matrix' + '='*50, '\n', confusion_matrix(y_test, y_pre
 
 pickle.dump(svm, open('models/svm.pkl', 'wb'))
 
+titles_options = [("SVM Confusion matrix, without normalization", None),
+                  ("SVM Normalized confusion matrix", 'true')]
+
+for title, normalize in titles_options:
+    disp = plot_confusion_matrix(svm, x_test, y_test,
+                                 display_labels=['Victory', 'Defeat'],
+                                 cmap=plt.cm.Blues,
+                                 normalize=normalize)
+    disp.ax_.set_title(title)
+
+plt.show()
 '''
 Neural Network
 
 Variables:
-    Red_MID: Red Champion selection for the MID role (string) 
-    Red_JUNG: Red Champion selection for the JUNG role (string) 
-    Blue_MID: Blue Champion selection for the MID role (string) 
-    Blue_JUNG: Blue Champion selection for the JUNG role (string)
+    redJungleChampTags: Red Champion selection for the Jungle role (string) 
+    redMiddlehampTags: Red Champion selection for the Middle role (string) 
+    redTopChampTags: Red Champion selection for the Top role (string) 
+    redADCChampTags: Red Champion selection for the ADC role (string) 
+    redSupportChampTags: Red Champion selection for the Support role (string) 
+    blueJungleChampTags: Blue Champion selection for the Jungle role (string)
+    blueMiddlehampTags: Blue Champion selection for the Middle role (string)
+    blueTopChampTags: Blue Champion selection for the Top role (string)
+    blueADCChampTags: Blue Champion selection for the ADC role (string)
+    blueSupportChampTags: Blue Champion selection for the Support role (string)
     Red_Kills_pre15: number of kills before minute 15 for red (integer)
     Red_Towers_pre15: number of towers destroyed before minute 15 for red (integer)
     Red_dragons_pre15: number of dragons captured by minute 15 (integer)
     Red_herald_pre15: herald captured by minute 15 for red (integer)
     Gold_Diff_MIN_15: Diff in gold (red team - blue team) (integer)
+
 Target:
     rResult: 1 if red team won (boolean)
+
 Architecture:
     * dense layer: 10 relu
     * dense layer: 10 relu
@@ -247,21 +305,22 @@ nn.save('models/nn')
 Linear regression
 
 Variables:
-    ** Red_TOP: Red Champion selection for the TOP role (string) 
-    Red_MID: Red Champion selection for the MID role (string) 
-    ** Red_ADC: Red Champion selection for the ADC role (string) 
-    ** Red_SUP: Red Champion selection for the SUP role (string) 
-    Red_JUNG: Red Champion selection for the JUNG role (string) 
-    ** Blue_TOP: Blue Champion selection for the TOP role (string) 
-    Blue_MID: Blue Champion selection for the MID role (string) 
-    ** Blue_ADC: Blue Champion selection for the ADC role (string) 
-    ** Blue_SUP: Blue Champion selection for the SUP role (string) 
-    Blue_JUNG: Blue Champion selection for the JUNG role (string)
+    redJungleChampTags: Red Champion selection for the Jungle role (string) 
+    redMiddlehampTags: Red Champion selection for the Middle role (string) 
+    redTopChampTags: Red Champion selection for the Top role (string) 
+    redADCChampTags: Red Champion selection for the ADC role (string) 
+    redSupportChampTags: Red Champion selection for the Support role (string) 
+    blueJungleChampTags: Blue Champion selection for the Jungle role (string)
+    blueMiddlehampTags: Blue Champion selection for the Middle role (string)
+    blueTopChampTags: Blue Champion selection for the Top role (string)
+    blueADCChampTags: Blue Champion selection for the ADC role (string)
+    blueSupportChampTags: Blue Champion selection for the Support role (string)
     Red_Kills_pre15: number of kills before minute 15 for red (integer)
     Red_Towers_pre15: number of towers destroyed before minute 15 for red (integer)
     Red_dragons_pre15: number of dragons captured by minute 15 (integer)
     Red_herald_pre15: herald captured by minute 15 for red (integer)
     Gold_Diff_MIN_15: Diff in gold (red team - blue team) (integer)
+
 Target:
     final_golddiff: Gold difference at the end of the game
 '''
@@ -281,3 +340,15 @@ y_pred = linear_model.predict(x_test)
 print('linear model R^2: {}'.format(linear_model.score(x_test, y_test))) # 0.4371161384443095
 
 pickle.dump(linear_model, open('models/linear_model.pkl', 'wb'))
+
+plt.scatter(y_pred, y_test)
+plt.plot(    
+    np.arange(min(y_test.values), max(y_test.values)), 
+    np.arange(min(y_test.values), max(y_test.values)), 
+    c='red',
+    linewidth=2
+    )
+plt.title('Predicted gold diff vs Real gold diff')
+plt.xlabel('Predicted gold diff')
+plt.ylabel('Real gold diff')
+plt.show()

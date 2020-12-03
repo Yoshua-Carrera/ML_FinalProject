@@ -6,54 +6,111 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 
-<body>
-
-<div class="row">
-
-    <form action="{{url_for('predict')}}" method="post">
-
+<body class="bg">
     <div class="col-md-12">
-         <h1>Welcome to League of Legend Win Win Prediction!</h1>
+        <h1>Welcome to League of Legend Win Win Prediction!</h1>
     </div>
+    <form action="{{url_for('predict')}}" method="post">
+        
+        <div class="row">
 
-         <div class="left-col">
-        <input type="text" name="RedTop" placeholder ="Red Team Top" style="text-align: center" required="required"/>
-             <br>
+            <div class="left-col">
 
-        <input type="text" name="RedJG" placeholder ="Red Team Jungle" required="required"/><br>
-        <input type="text" name="RedMid" placeholder ="Red Team Middle" required="required"/><br>
-        <input type="text" name="RedAD" placeholder ="Red Team ADC" required="required"/><br>
-        <input type="text" name="RedSup" placeholder ="Red Team Support" required="required"/><br>
-        </div>
+                <input class="redTop" list="TopChamp" name="top" id="top" placeholder="Red Team Top" required="required"/>
+                    <datalist id="TopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="redJG" list="TopChamp" name="top" id="top" placeholder="Red Team Jungle" required="required"/>
+                    <datalist id="TopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="redMid" list="TopChamp" name="top" id="top" placeholder="Red Team Middle" required="required"/>
+                    <datalist id="TopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="redAD" list="TopChamp" name="top" id="top" placeholder="Red Team ADC" required="required"/>
+                    <datalist id="TopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="redSup" list="TopChamp" name="top" id="top" placeholder="Red Team Support" required="required"/>
+                    <datalist id="TopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+            </div>
 
 
-        <div class="right-col">
-        <input type="text" name="BlueTop" placeholder ="Blue Team Top" required="required"/><br>
-        <input type="text" name="BlueJG" placeholder ="Blue Team Jungle" required="required"/><br>
-        <input type="text" name="BlueMid" placeholder ="Blue Team Middle" required="required"/><br>
-        <input type="text" name="BlueAD" placeholder ="Blue Team ADC" required="required"/><br>
-        <input type="text" name="BlueSup" placeholder ="Blue Team Support" required="required"/><br>
+            <div class="right-col">
+
+                <input class="blueTop" list="TopChamp" name="top" id="top" placeholder="Blue Team Top" required="required"/>
+                    <datalist id="TopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="blueJG" list="TopChamp" name="top" id="top" placeholder="Blue Team Jungle" required="required"/>
+                    <datalist id="TopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="blueMid" list="TopChamp" name="top" id="top" placeholder="Blue Team Middle" required="required"/>
+                    <datalist id="TopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="blueAD" list="TopChamp" name="top" id="top" placeholder="Blue Team ADC" required="required"/>
+                    <datalist id="TopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="blueSup" list="TopChamp" name="top" id="top" placeholder="Blue Team Support" required="required"/>
+                    <datalist id="TopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+            </div>
+
         </div>
 
         <div class="col-md-12">
-        <input type="text" name="YourTeamKill" placeholder ="Your Team Kills"style="text-align: center" required="required"/>
-        <input type="text" name="Dragon" placeholder ="Your Team Dragon"style="text-align: center" required="required"/>
-        <input type="text" name="Herald" placeholder ="Your Team Herald"style="text-align: center" required="required"/>
-        <input type="text" name="Tower" placeholder ="You Team Tower"style="text-align: center" required="required"/>
-        <input type="text" name="GoldDiff" placeholder ="Gold Difference"style="text-align: center" required="required"/>
+            <input type="text" name="YourTeamKill" placeholder ="Your Team Kills"style="text-align: center" required="required"/>
+            <input type="text" name="Dragon" placeholder ="Your Team Dragon"style="text-align: center" required="required"/>
+            <input type="text" name="Herald" placeholder ="Your Team Herald"style="text-align: center" required="required"/>
+            <input type="text" name="Tower" placeholder ="You Team Tower"style="text-align: center" required="required"/>
+            <input type="text" name="GoldDiff" placeholder ="Gold Difference"style="text-align: center" required="required"/>
         </div>
 
-    <div class="btn">
-      <button type="submit" class="btn btn-primary">Predict!</button>
-    </div>
-
-    <div class="result">
-     {{prediction_text}}
-    </div>
-
+        <div class="btn">
+            <button type="submit" class="btn btn-primary">Predict!</button>
+        </div>
+        
+        <div class="result">
+            {{prediction_text}}
+        </div>
     </form>
-
-</div>
 
 </body>
 </html>
