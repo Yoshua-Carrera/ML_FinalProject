@@ -1,42 +1,57 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
-    <meta charset="UTF-8">
     <title>ML Project</title>
-
-    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 
 <body>
-<div class="login">
-    <h1>Welcome to League of Legend Win Win Prediction!</h1>
+
+<div class="row">
+
     <form action="{{url_for('predict')}}" method="post">
 
-        <input type="test" name="Kills" placeholder ="Your Team Number of Kill(s)" required="required"/>
-        <input type="test" name="Towers" placeholder ="Your Team Number of Tower(s) Taken" required="required"/>
-        <input type="test" name="Dragon" placeholder ="Your Number of Dragon(s) Kill" required="required"/>
-        <input type="test" name="Herald" placeholder ="Did you take Rift Herald (Y/N)" required="required"/>
-        <input type="test" name="GoldDiff" placeholder ="Your Team Gold Difference at the moment" required="required"/>
-        <input type="test" name="RedTeamMiddle" placeholder ="Red Team Middle" required="required"/>
-        <input type="test" name="RedTeamJG" placeholder ="Red Team Jungle" required="required"/>
-        <input type="test" name="BlueTeamMiddle" placeholder ="Blue Team Middle" required="required"/>
-        <input type="test" name="BlueTeamJG" placeholder ="Blue Team Jungle" required="required"/>
+    <div class="col-md-12">
+         <h1>Welcome to League of Legend Win Win Prediction!</h1>
+    </div>
 
-    <button type="submit" class="btn btn-primary btn-block btn-large">Predict!</button>
+         <div class="left-col">
+        <input type="text" name="RedTop" placeholder ="Red Team Top" style="text-align: center" required="required"/>
+             <br>
+
+        <input type="text" name="RedJG" placeholder ="Red Team Jungle" required="required"/><br>
+        <input type="text" name="RedMid" placeholder ="Red Team Middle" required="required"/><br>
+        <input type="text" name="RedAD" placeholder ="Red Team ADC" required="required"/><br>
+        <input type="text" name="RedSup" placeholder ="Red Team Support" required="required"/><br>
+        </div>
+
+
+        <div class="right-col">
+        <input type="text" name="BlueTop" placeholder ="Blue Team Top" required="required"/><br>
+        <input type="text" name="BlueJG" placeholder ="Blue Team Jungle" required="required"/><br>
+        <input type="text" name="BlueMid" placeholder ="Blue Team Middle" required="required"/><br>
+        <input type="text" name="BlueAD" placeholder ="Blue Team ADC" required="required"/><br>
+        <input type="text" name="BlueSup" placeholder ="Blue Team Support" required="required"/><br>
+        </div>
+
+        <div class="col-md-12">
+        <input type="text" name="YourTeamKill" placeholder ="Your Team Kills"style="text-align: center" required="required"/>
+        <input type="text" name="Dragon" placeholder ="Your Team Dragon"style="text-align: center" required="required"/>
+        <input type="text" name="Herald" placeholder ="Your Team Herald"style="text-align: center" required="required"/>
+        <input type="text" name="Tower" placeholder ="You Team Tower"style="text-align: center" required="required"/>
+        <input type="text" name="GoldDiff" placeholder ="Gold Difference"style="text-align: center" required="required"/>
+        </div>
+
+    <div class="btn">
+      <button type="submit" class="btn btn-primary">Predict!</button>
+    </div>
+
+    <div class="result">
+     {{prediction_text}}
+    </div>
 
     </form>
-
-    <br>
-    <br>
-
-    {{prediction_text}}
 
 </div>
 
