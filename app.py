@@ -6,7 +6,7 @@ import pickle
 import ast
 import json
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 model = pickle.load(open('models/svm.pkl', 'rb'))
 df = pd.read_csv('LOL/Clean_LeagueofLegends.csv')
 
@@ -28,6 +28,11 @@ x = pd.get_dummies(x, columns=['blueMiddleChamp', 'blueJungleChamp', 'redMiddleC
 def home():
     return render_template('index.html')
 
+@app.route('/', methods=['GET'])
+def dropdown():
+    colours = ['Red', 'Blue', 'Black', 'Orange']
+    return render_template('index.html', colours=colours)
+
 @app.route('/predict', methods=['POST'])
 def predict():
     '''
@@ -43,13 +48,21 @@ def predict():
        'redJungleChamp_Zac']
     '''
     user_response = request.form.values()
+    user_response = list(request.form.values())
+    print('\n', '='*100, '\n')
+    print(user_response)
+    print('\n', '='*100, '\n')
+    for i in range(10):
+        print('\n', '='*100, '\n')
+        print(user_response[i])
+        print('\n', '='*100, '\n')
+        user_response[i] = tag_dict[str(user_response[i].capitalize())]
+        print('\n', '='*100, '\n')
+        print(user_response)
+        print('\n', '='*100, '\n')        
     
-    for i in range(5, len(user_response)+1):
-        user_response[i] = role_dict[user_response[i]]
-    
-    features = [y+x.capitalize() if y != '' else int(x) for x, y in zip(user_response, ['', '', '', '', '', 
-                                                                                                'redTopChamp_', 'redMiddleChamp_', 'redJungleChamp_', 'redADCChamp_', 'redSupportChamp_', 
-                                                                                                 'blueTopChamp_', 'blueMiddleChamp_', 'blueJungleChamp_', 'blueADCChamp_', 'blueSupportChamp_'])]
+    features = [y+x.capitalize() if y != '' else int(x) for x, y in zip(user_response, ['redTopChamp_', 'redMiddleChamp_', 'redJungleChamp_', 'redADCChamp_', 'redSupportChamp_', 
+                                                                                        'blueTopChamp_', 'blueMiddleChamp_', 'blueJungleChamp_', 'blueADCChamp_', 'blueSupportChamp_', '', '', '', '', ''])]
     input_array = [0]*len(x.columns)
 
     for i in range(len(x.columns)):
