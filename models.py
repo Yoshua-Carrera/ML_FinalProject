@@ -11,9 +11,9 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import confusion_matrix, plot_confusion_matrix
 
-# from keras.models import Sequential
-# from keras.layers import Dense
-# from keras import metrics
+from keras.models import Sequential
+from keras.layers import Dense
+from keras import metrics
 
 import pickle
 
