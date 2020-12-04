@@ -1,4 +1,15 @@
 # This is the app
+'''
+Certain champions are not working well because of the spelling:
+(Champion role spelling)                        (Champion tag spelling)
+Cho'Gath                                            Chogath
+Rek'Sai                                             Reksai
+MissFortune                                         Miss Fortune
+Monkeyking (Wukong)                                 Wukong
+
+Names need to be unified without spaces, and capitalized in order to standarize, wukong being monkey king is just odd
+pog
+'''
 import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
