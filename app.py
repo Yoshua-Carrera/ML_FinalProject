@@ -101,7 +101,7 @@ def predict():
         prediction = model.predict_proba([np.array(input_array)])
         output = round(prediction[0][1], 3)
         print('Your probability of winning is: {:.4%} for the input: {}'.format(output, features))
-        return render_template('index.html', prediction_text='Your probability of winning is: {:.3%}'.format(output), form=Form())
+        return render_template('models.html', prediction_text='Your probability of winning is: {:.3%}'.format(output), form=Form())
     else:
         model = pickle.load(open('models/rForestM2.pkl', 'rb'))
         
@@ -139,21 +139,21 @@ def predict():
         prediction = model.predict_proba([np.array(input_array)])
         output = round(prediction[0][0], 3)
         print('Your probability of winning is: {:.4%} for the input: {}'.format(output, features))
-        return render_template('index.html', prediction_text='Your probability of winning is: {:.3%}'.format(output), form=Form())
+        return render_template('models.html', prediction_text='Your probability of winning is: {:.3%}'.format(output), form=Form())
 
 @app.route('/Model1', methods=['POST', 'GET'])
 def Model1():
     isIndex=False
     session['my_var'] = 'M1'
     form = Form()
-    return render_template('index.html', form=form, isIndex=isIndex)
+    return render_template('models.html', form=form, isIndex=isIndex)
 
 @app.route('/Model2', methods=['POST', 'GET'])
 def Model2():
     isIndex=True
     session['my_var'] = 'M2'
     form = Form()
-    return render_template('index.html', form=form, isIndex=isIndex)
+    return render_template('models.html', form=form, isIndex=isIndex)
 
 
 if __name__ == "__main__":

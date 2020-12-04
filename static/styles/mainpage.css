@@ -1,117 +1,124 @@
 * {
     margin: 0 auto;
 }
-.row {
-    height: 120vh;
-    width: 101%;
-    background-image: url("assets/league_nice.png");
-    background-size: cover; 
-    box-sizing: border-box;
-    position: relative;
-}
 
 .bg {
-    height: 100vh;
-    width: 100%;
-    background-image: url("assets/mainbackground.png");
+    background-repeat: no-repeat;
     background-size: cover;
-    box-sizing: border-box;
+    background-position: center;
+    height: 100vh;
+    width: 100vw;
     position: absolute;
+    z-index: 0
 }
 
-.col-md-12 {
-    font-style: italic;
+.main_title {
+    font-size: 35px;
     text-align: center;
-    font-size: x-large;
+    color: aliceblue;
+    font-style: bold;
+    position: relative;
+    z-index: 1;
+    top: 30px;
 }
 
-.input {
-    width: 50%;
-    column-count: 2;
-}
-
-.btn {
-    margin: 0;
-    position: absolute;
-    width: 200;
-    height: 50;
-    top: 105.5%;
-    left: 51.25%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
-.result {
+.class_title {
+    font-size: 10;
     text-align: center;
-    font-size: x-large;
+    color: aliceblue;
+    font-style: bold;
+    position: relative;
+    z-index: 1;
+    top: 30px;
 }
 
-.left-col {
-    width: 50%;
-    float: left;
-    padding-left: 300px;
+.sub_title {
+    font-size: 25px;
+    text-align: center;
+    color: aliceblue;
+    font-style: bold;
+    position: relative;
+    z-index: 2;
+    top: 60px;
 }
 
-.right-col {
-    width: 50%;
-    float: left;
-    padding-left: 150px;
+.students {
+    font-size: 18px;
+    text-align: center;
+    color: aliceblue;
+    font-style: bold;
+    position: relative;
+    z-index: 1;
+    top: 70px;
 }
 
-.redTop {
-    width: 300%;
-    height: 300%;
-    position: absolute;
-    top: 16%;
-    left: 10.2%;
+.zoe {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+    height: 10%;
+    width: 10%;
 }
 
-.redJG {
+.textbox {
     position: absolute;
-    top: 27.5%;
-    left: 7.5%;
+    z-index: 1;
+    left: 16%;
+    width: 67%;
+    height: 35%;
 }
 
-.redMid {
+.model1button {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     position: absolute;
-    top: 38.5%;
-    left: 7.5%;
+    z-index: 1;
+    display: block;
+    left: 300px;
+    top: 400px;
+    height: 10%;
+    width: 20%;
+    font-size: 50px
 }
 
-.redAD {
+.model2button {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     position: absolute;
-    top: 49.5%;
-    left: 7.5%;
+    z-index: 1;
+    display: block;
+    right: 300px;
+    top: 400px;
+    height: 10%;
+    width: 20%;
 }
 
-.redSup {
+.button_text {
+    font-size: 35px;
+    text-align: center;
+    color: aliceblue;
+    font-style: bold;
     position: absolute;
-    top: 61%;
-    left: 7.5%;
+    z-index: 2;
+    top: 730px;
+    left: 320px;
 }
 
-.blueTop {
+.button_text_2 {
+    font-size: 35px;
+    text-align: center;
+    color: aliceblue;
+    font-style: bold;
     position: absolute;
-    top: 16%;
-    right: 4%;}
-
-.blueJG {
-    position: absolute;
-    top: 27.5%;
-    right: 4%;}
-
- .blueMid {
-    position: absolute;
-    top: 38.5%;
-    right: 4%;}
-
-.blueAD {
-    position: absolute;
-    top: 49.5%;
-    right: 4%;}
-
-.blueSup {
-    position: absolute;
-    top: 61%;
-    right: 4%;}
-
+    z-index: 2;
+    top: 730px;
+    right: 355px;
+}

@@ -1,0 +1,167 @@
+<html>
+<head>
+    <title>ML Project</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/models.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg" src='../static/styles/assets/homebg.jpg'>
+    <div class="col-md-12">
+        <h1>Welcome to League of Legend Win Win Prediction!</h1>
+    </div>
+    <form action="{{url_for('predict')}}" method="POST">
+        
+        <div class="row">
+
+            <div class="left-col">
+                
+                <span class="redTop">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.redTopChamp }}
+                </span>
+                
+                <span class="redJG">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.redJungleChamp }}
+                </span>
+                
+                <span class="redMid">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.redMiddleChamp }}
+                </span>
+                
+                <span class="redAD">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.redADCChamp }}
+                </span>
+                
+                <span class="redSup">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.redSupportChamp }}
+                </span>
+                
+                
+                <!-- <input class="redTop" list="MiddleChamp" name="rtop" id="rtop" placeholder="Red Team Top" required="required"/>
+                    <datalist id="rTopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="redJG" list="MiddleChamp" name="rJungle" id="rJungle" placeholder="Red Team Jungle" required="required"/>
+                    <datalist id="rJungleChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="redMid" list="TopChamp" name="rMiddle" id="rMiddle" placeholder="Red Team Middle" required="required"/>
+                    <datalist id="rMiddleChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="redAD" list="TopChamp" name="rADC" id="rADC" placeholder="Red Team ADC" required="required"/>
+                    <datalist id="rADCChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="redSup" list="TopChamp" name="rSupport" id="rSupport" placeholder="Red Team Support" required="required"/>
+                    <datalist id="rSupportChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                 -->
+
+            </div>
+
+
+            <span class="right-col">
+
+                <span class="blueTop">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.blueTopChamp }}
+                </span>
+                
+                <span class="blueJG">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.blueJungleChamp }}
+                </span>
+                
+                <span class="blueMid">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.blueMiddleChamp }}
+                </span>
+                
+                <span class="blueAD">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.blueADCChamp }}
+                </span>
+                
+                <span class="blueSup">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.blueSupportChamp }}
+                </span>
+                <!-- <input class="blueTop" list="TopChamp" name="bTop" id="bTop" placeholder="Blue Team Top" required="required"/>
+                    <datalist id="bTopChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="blueJG" list="TopChamp" name="bJungle" id="bJungle" placeholder="Blue Team Jungle" required="required"/>
+                    <datalist id="bJungleChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="blueMid" list="TopChamp" name="bMiddle" id="bMiddle" placeholder="Blue Team Middle" required="required"/>
+                    <datalist id="bMiddleChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="blueAD" list="TopChamp" name="bADC" id="bADC" placeholder="Blue Team ADC" required="required"/>
+                    <datalist id="bADCChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                
+
+                <input class="blueSup" list="TopChamp" name="bSupport" id="bSupport" placeholder="Blue Team Support" required="required"/>
+                    <datalist id="bSupportChamp">
+                        <option value="Dropdown">
+                        <option value="Dropdown2">
+                        <option value="Dropdown3">
+                    </datalist><br>                 -->
+
+            </div>
+
+        </div>
+
+        <div class="col-md-12">
+            <input type="text" name="YourTeamKill" placeholder ="Your Team Kills"style="text-align: center, position: abosolute" required="required"/>
+            <input type="text" name="Dragon" placeholder ="Your Team Dragon"style="text-align: center, position: abosolute" required="required"/>
+            <input type="text" name="Herald" placeholder ="Your Team Herald"style="text-align: center, position: abosolute" required="required"/>
+            <input type="text" name="Tower" placeholder ="You Team Tower"style="text-align: center, position: abosolute" required="required"/>
+            {% if isIndex %}
+            <input type="text" name="GoldDiff" placeholder ="Gold Difference"style="text-align: center" required="required"/>
+            {% endif %}
+        </div>
+
+        <div class="btn">
+            <button type="submit" class="btn btn-primary">Predict!</button>
+        </div>
+    
+        <div class="result">
+            {{prediction_text}}
+        </div>
+    </form>
+    </body>
+</html>
