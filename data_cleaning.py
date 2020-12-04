@@ -74,16 +74,16 @@ for row in range(len(df_champs)):
     champion_tags[df_champs['name'][row]] = champion_tags[df_champs['tags'][row]]
 
 
-with open('championdata/Champion_tag.json', 'w') as fp:
-    json.dump(champion_tags, fp)
+# with open('championdata/Champion_tag.json', 'w') as fp:
+#     json.dump(champion_tags, fp)
 
 champion_tags = {}
 
 for row in range(len(df_champs)):
     champion_tags[df_champs['name'][row]] = df_champs['tags'][row]
 
-with open('championdata/Champion_tag.json', 'w') as fp:
-    json.dump(champion_tags, fp, indent=4)
+# with open('championdata/Champion_tag.json', 'w') as fp:
+#     json.dump(champion_tags, fp, indent=4)
 
 champion_roles = {}
 

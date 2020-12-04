@@ -22,6 +22,7 @@ from wtforms import SelectField
 
 app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = 'secret'
+
 model = pickle.load(open('models/svm.pkl', 'rb'))
 df = pd.read_csv('LOL/Clean_LeagueofLegends.csv')
 
@@ -102,9 +103,12 @@ def predict():
         print(name)
     print('\n', '='*100, '\n')    
 
+    for index, index2 in zip(range(5), range(10,15)):
+        input_array[index] = features[index2]
+
     for i in range(len(x.columns)):
-        if pd.Series.between(i, 11, 14):
-            input_array[i] = features[i]
+        if pd.Series.between(i, 0, 4):
+            pass
         elif x.columns[i] in features:
             print('champ {} in {}'.format(x.columns[i], i))
             input_array[i] = 1    

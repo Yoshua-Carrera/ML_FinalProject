@@ -11,9 +11,9 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import confusion_matrix, plot_confusion_matrix
 
-from keras.models import Sequential
-from keras.layers import Dense
-from keras import metrics
+# from keras.models import Sequential
+# from keras.layers import Dense
+# from keras import metrics
 
 import pickle
 
@@ -172,6 +172,7 @@ rForest = RandomForestClassifier(n_estimators=100)
 rForest.fit(x_train, y_train)
 
 y_pred = rForest.predict(x_test)
+y_pred_P = rForest.predict_proba(x_test)
 
 rForest_accuracy = sum(y_pred==y_test)/len(y_test)
 
@@ -220,6 +221,7 @@ svm = SVC(probability=True)
 svm.fit(x_train, y_train)
 
 y_pred = svm.predict(x_test)
+y_pred_p = svm.predict_proba(x_test)
 
 print(x_test.head(1))
 
@@ -235,13 +237,21 @@ pickle.dump(svm, open('models/svm.pkl', 'wb'))
 titles_options = [("SVM Confusion matrix, without normalization", None),
                   ("SVM Normalized confusion matrix", 'true')]
 
-for title, normalize in titles_options:
-    disp = plot_confusion_matrix(svm, x_test, y_test,
-                                 display_labels=['Victory', 'Defeat'],
-                                 cmap=plt.cm.Blues,
-                                 normalize=normalize)
-    disp.ax_.set_title(title)
+# for title, normalize in titles_options:
+#     disp = plot_confusion_matrix(svm, x_test, y_test,
+#                                  display_labels=['Victory', 'Defeat'],
+#                                  cmap=plt.cm.Blues,
+#                                  normalize=normalize)
+#     disp.ax_.set_title(title)
 
+# plt.show()
+
+# print(y_pred_p[:,1])
+
+# plt.scatter(x_test['golddiff_min15'], y_pred_p[:,0])
+# plt.title('Gold difference at minute 15 vs winning probability')
+# plt.xlabel('Gold difference')
+# plt.ylabel('Winning probability')
 # plt.show()
 '''
 Neural Network
