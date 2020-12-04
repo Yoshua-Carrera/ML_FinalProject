@@ -1,11 +1,20 @@
 # This is the app
 '''
+
+---- 1 -----
+
 Certain champions are not working well because of the spelling:
 (Champion role spelling)                        (Champion tag spelling)
 Cho'Gath                                            Chogath
 Rek'Sai                                             Reksai
 MissFortune                                         Miss Fortune
 Monkeyking (Wukong)                                 Wukong
+
+---- 2 -----
+
+Create actual homepage
+fix aesthetics on model pages
+add back button for predict route 
 
 Names need to be unified without spaces, and capitalized in order to standarize, wukong being monkey king is just odd
 pog
