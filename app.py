@@ -12,18 +12,18 @@ pog
 '''
 import numpy as np
 import pandas as pd
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session
 import pickle
 import ast
 import json
 from flask_wtf import FlaskForm
 from wtforms import SelectField
+from sklearn.preprocessing import StandardScaler
 
 
 app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = 'secret'
 
-model = pickle.load(open('models/svm.pkl', 'rb'))
 df = pd.read_csv('LOL/Clean_LeagueofLegends.csv')
 
 with open('championdata/Champion_role.json') as f:
@@ -47,88 +47,105 @@ class Form(FlaskForm):
     blueADCChamp = SelectField('redADCChamp', choices=[(champ, champ) for champ in role_dict['ADC']])
     blueSupportChamp = SelectField('redSupportChamp', choices=[(champ, champ) for champ in role_dict['Support']])
 
-x_cols = ['blueJungleChampTags', 'redJungleChampTags', 'blueMiddleChampTags', 'redMiddleChampTags', 'blueADCChampTags', 
-            'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 'blueTopChampTags', 'redTopChampTags', 
-            'rKills_pre15', 'rTowers_pre15', 'rDragons_pre15','rHeralds_pre15', 'golddiff_min15']
-
-x = df[x_cols]
-x = pd.get_dummies(x, columns=['blueJungleChampTags', 'redJungleChampTags', 'blueMiddleChampTags', 'redMiddleChampTags', 'blueADCChampTags', 
-                                 'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 'blueTopChampTags', 'redTopChampTags'])
-
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    print(session)
     form = Form()
     return render_template('index.html', form=form)
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    '''
-    ['rKills_pre15', 'rTowers_pre15', 'rDragons_pre15', 'rHeralds_pre15',
-       'golddiff_min15', 'blueMiddleChamp_Ahri', 'blueMiddleChamp_Akali',  
-       'blueMiddleChamp_Anivia', 'blueMiddleChamp_AurelionSol',
-       'blueMiddleChamp_Azir',
-       ...
-       'redJungleChamp_Shyvana', 'redJungleChamp_Sion',
-       'redJungleChamp_Skarner', 'redJungleChamp_Trundle',
-       'redJungleChamp_Udyr', 'redJungleChamp_Vi', 'redJungleChamp_Volibear',
-       'redJungleChamp_Warwick', 'redJungleChamp_XinZhao',
-       'redJungleChamp_Zac']
-    '''
-    user_response = request.form.values()
-    user_response = list(request.form.values())
-    print('\n', '='*100, '\n')
-    print(user_response)
-    print('\n', '='*100, '\n')
-    for i in range(10):
-        print('\n', '='*100, '\n')
-        print(user_response[i])
-        print('\n', '='*100, '\n')
-        user_response[i] = tag_dict[str(user_response[i].capitalize())]
-        print('\n', '='*100, '\n')
+    if session.get('my_var', None) == 'M1':
+        model = pickle.load(open('models/rForestM1.pkl', 'rb'))
+        
+        x_cols = ['blueJungleChampTags', 'redJungleChampTags', 'blueMiddleChampTags', 'redMiddleChampTags', 'blueADCChampTags', 
+        'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 'blueTopChampTags', 'redTopChampTags', 
+        'rKills_pre15', 'rTowers_pre15', 'rDragons_pre15','rHeralds_pre15'] # , 'golddiff_min15'
+        
+        x = df[x_cols]
+        x = pd.get_dummies(x, columns=['blueJungleChampTags', 'redJungleChampTags', 'blueMiddleChampTags', 'redMiddleChampTags', 'blueADCChampTags', 
+                                 'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 'blueTopChampTags', 'redTopChampTags'])
+        
+        user_response = list(request.form.values())
+        
+        for i in range(10):
+            user_response[i] = tag_dict[str(user_response[i].capitalize())]
+        
+        features = [y+x if y != '' else int(x) for x, y in zip(user_response, ['redTopChampTags_', 'redJungleChampTags_', 'redMiddleChampTags_', 'redADCChampTags_', 'redSupportChampTags_', 
+                                                                            'blueTopChampTags_', 'blueJungleChampTags_', 'blueMiddleChampTags_', 'blueADCChampTags_', 'blueSupportChampTags_', 
+                                                                            '', '', '',''])] # add another empty
+        
+        input_array = [0]*len(x.columns)
+
+        for index, index2 in zip(range(4), range(10,14)): # put back to 15
+            input_array[index] = features[index2]
+
+        for i in range(len(x.columns)):
+            if pd.Series.between(i, 0, 3): # put back to 4
+                pass
+            elif x.columns[i] in features:
+                print('champ {} in {}'.format(x.columns[i], i))
+                input_array[i] = 1    
+            else:
+                input_array[i] = 0
+
+        prediction = model.predict_proba([np.array(input_array)])
+        output = round(prediction[0][1], 3)
+        print('Your probability of winning is: {:.4%} for the input: {}'.format(output, features))
+        return render_template('index.html', prediction_text='Your probability of winning is: {:.3%}'.format(output), form=Form())
+    else:
+        model = pickle.load(open('models/rForestM2.pkl', 'rb'))
+        
+        x_cols = ['blueJungleChampTags', 'redJungleChampTags', 'blueMiddleChampTags', 'redMiddleChampTags', 'blueADCChampTags', 
+        'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 'blueTopChampTags', 'redTopChampTags', 
+        'rKills_pre15', 'rTowers_pre15', 'rDragons_pre15','rHeralds_pre15', 'golddiff_min15'] 
+        
+        x = df[x_cols]
+        x = pd.get_dummies(x, columns=['blueJungleChampTags', 'redJungleChampTags', 'blueMiddleChampTags', 'redMiddleChampTags', 'blueADCChampTags', 
+                                 'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 'blueTopChampTags', 'redTopChampTags'])
+        
+        user_response = list(request.form.values())
         print(user_response)
-        print('\n', '='*100, '\n')        
-    
-    features = [y+x if y != '' else int(x) for x, y in zip(user_response, ['redTopChampTags_', 'redJungleChampTags_', 'redMiddleChampTags_', 'redADCChampTags_', 'redSupportChampTags_', 
-                                                                        'blueTopChampTags_', 'blueJungleChampTags_', 'blueMiddleChampTags_', 'blueADCChampTags_', 'blueSupportChampTags_', 
-                                                                        '', '', '','', ''])]
-    input_array = [0]*len(x.columns)
+        for i in range(10):
+            user_response[i] = tag_dict[str(user_response[i].capitalize())]
+        
+        features = [y+x if y != '' else int(x) for x, y in zip(user_response, ['redTopChampTags_', 'redJungleChampTags_', 'redMiddleChampTags_', 'redADCChampTags_', 'redSupportChampTags_', 
+                                                                            'blueTopChampTags_', 'blueJungleChampTags_', 'blueMiddleChampTags_', 'blueADCChampTags_', 'blueSupportChampTags_', 
+                                                                            '', '', '','', ''])]
+        
+        input_array = [0]*len(x.columns)
 
-    print('\n', '='*100, '\n')
-    for name in x.columns: 
-        print(name)
-    print('\n', '='*100, '\n')      
+        for index, index2 in zip(range(5), range(10,15)):
+            input_array[index] = features[index2]
 
-    print('\n', '='*100, '\n')
-    for name in features: 
-        print(name)
-    print('\n', '='*100, '\n')    
+        for i in range(len(x.columns)):
+            if pd.Series.between(i, 0, 4):
+                pass
+            elif x.columns[i] in features:
+                print('champ {} in {}'.format(x.columns[i], i))
+                input_array[i] = 1    
+            else:
+                input_array[i] = 0
 
-    for index, index2 in zip(range(5), range(10,15)):
-        input_array[index] = features[index2]
+        prediction = model.predict_proba([np.array(input_array)])
+        output = round(prediction[0][0], 3)
+        print('Your probability of winning is: {:.4%} for the input: {}'.format(output, features))
+        return render_template('index.html', prediction_text='Your probability of winning is: {:.3%}'.format(output), form=Form())
 
-    for i in range(len(x.columns)):
-        if pd.Series.between(i, 0, 4):
-            pass
-        elif x.columns[i] in features:
-            print('champ {} in {}'.format(x.columns[i], i))
-            input_array[i] = 1    
-        else:
-            input_array[i] = 0
+@app.route('/Model1', methods=['POST', 'GET'])
+def Model1():
+    isIndex=False
+    session['my_var'] = 'M1'
+    form = Form()
+    return render_template('index.html', form=form, isIndex=isIndex)
 
-    prediction = model.predict_proba([np.array(input_array)])
-    print([np.array(input_array)])
-    print(prediction)
-    print(model.predict([np.array(input_array)])[0])
-    output = round(prediction[0][1], 3)
-    print('Your probability of winning is: {:.4%} for the input: {}'.format(output, features))
-    return render_template('index.html', prediction_text='Your probability of winning is: {:.4%} for the input: {}'.format(output, features), form=Form())
+@app.route('/Model2', methods=['POST', 'GET'])
+def Model2():
+    isIndex=True
+    session['my_var'] = 'M2'
+    form = Form()
+    return render_template('index.html', form=form, isIndex=isIndex)
 
-@app.route('/predict_api', methods=['POST'])
-def predict_api():
-    '''
-    For direct API calls trought request
-    :return:
-    '''
 
 if __name__ == "__main__":
     app.run(debug=True)
