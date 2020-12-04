@@ -16,7 +16,7 @@
     background-image: url("assets/mainbackground.png");
     background-size: cover;
     box-sizing: border-box;
-    position: relative;
+    position: absolute;
 }
 
 .col-md-12 {
@@ -59,6 +59,8 @@
 }
 
 .redTop {
+    width: 300%;
+    height: 300%;
     position: absolute;
     top: 16%;
     left: 10.2%;

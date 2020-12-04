@@ -90,7 +90,7 @@ for title, normalize in titles_options:
                                  normalize=normalize)
     disp.ax_.set_title(title)
 
-plt.show()
+# plt.show()
 
 '''
 Decision Tree
@@ -139,7 +139,7 @@ for title, normalize in titles_options:
                                  normalize=normalize)
     disp.ax_.set_title(title)
 
-plt.show()
+# plt.show()
 '''
 Random Forest
 
@@ -190,7 +190,7 @@ for title, normalize in titles_options:
                                  normalize=normalize)
     disp.ax_.set_title(title)
 
-plt.show()
+# plt.show()
 '''
 SVM
 
@@ -242,7 +242,7 @@ for title, normalize in titles_options:
                                  normalize=normalize)
     disp.ax_.set_title(title)
 
-plt.show()
+# plt.show()
 '''
 Neural Network
 
@@ -351,4 +351,4 @@ plt.plot(
 plt.title('Predicted gold diff vs Real gold diff')
 plt.xlabel('Predicted gold diff')
 plt.ylabel('Real gold diff')
-plt.show()
+# plt.show()

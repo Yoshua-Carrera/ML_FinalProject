@@ -10,13 +10,39 @@
     <div class="col-md-12">
         <h1>Welcome to League of Legend Win Win Prediction!</h1>
     </div>
-    <form action="{{url_for('predict')}}" method="post">
+    <form action="{{url_for('predict')}}" method="POST">
         
         <div class="row">
 
             <div class="left-col">
-
-                <input class="redTop" list="MiddleChamp" name="rtop" id="rtop" placeholder="Red Team Top" required="required"/>
+                
+                <div class="redTop">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.redTopChamp }}
+                </div>
+                
+                <div class="redJG">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.redJungleChamp }}
+                </div>
+                
+                <div class="redMid">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.redMiddleChamp }}
+                </div>
+                
+                <div class="redAD">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.redADCChamp }}
+                </div>
+                
+                <div class="redSup">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.redSupportChamp }}
+                </div>
+                
+                
+                <!-- <input class="redTop" list="MiddleChamp" name="rtop" id="rtop" placeholder="Red Team Top" required="required"/>
                     <datalist id="rTopChamp">
                         <option value="Dropdown">
                         <option value="Dropdown2">
@@ -49,14 +75,38 @@
                         <option value="Dropdown">
                         <option value="Dropdown2">
                         <option value="Dropdown3">
-                    </datalist><br>                
+                    </datalist><br>                 -->
 
             </div>
 
 
             <div class="right-col">
 
-                <input class="blueTop" list="TopChamp" name="bTop" id="bTop" placeholder="Blue Team Top" required="required"/>
+                <div class="blueTop">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.blueTopChamp }}
+                </div>
+                
+                <div class="blueJG">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.blueJungleChamp }}
+                </div>
+                
+                <div class="blueMid">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.blueMiddleChamp }}
+                </div>
+                
+                <div class="blueAD">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.blueADCChamp }}
+                </div>
+                
+                <div class="blueSup">
+                    <!-- {{ form.csrf_token }} -->
+                    {{ form.blueSupportChamp }}
+                </div>
+                <!-- <input class="blueTop" list="TopChamp" name="bTop" id="bTop" placeholder="Blue Team Top" required="required"/>
                     <datalist id="bTopChamp">
                         <option value="Dropdown">
                         <option value="Dropdown2">
@@ -89,7 +139,7 @@
                         <option value="Dropdown">
                         <option value="Dropdown2">
                         <option value="Dropdown3">
-                    </datalist><br>                
+                    </datalist><br>                 -->
 
             </div>
 
@@ -106,11 +156,10 @@
         <div class="btn">
             <button type="submit" class="btn btn-primary">Predict!</button>
         </div>
-        
+    
         <div class="result">
             {{prediction_text}}
         </div>
     </form>
-
-</body>
+    </body>
 </html>
