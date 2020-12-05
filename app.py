@@ -56,14 +56,21 @@ class Form(FlaskForm):
     blueADCChamp = SelectField('redADCChamp', choices=[(champ, champ) for champ in role_dict['ADC']])
     blueSupportChamp = SelectField('redSupportChamp', choices=[(champ, champ) for champ in role_dict['Support']])
 
+    rKills = SelectField('Red kills', choices=[(champ, champ) for champ in range(16)])
+    rDragons = SelectField('Red Dragons Slayed', choices=[(champ, champ) for champ in range(4)])
+    rHeralds = SelectField('Red Heralds Slayed', choices=[(champ, champ) for champ in range(2)])
+    rTowers = SelectField('Red Towers Taken', choices=[(champ, champ) for champ in range(7)])
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    is_pred = False
     print(session)
     form = Form()
-    return render_template('index.html', form=form)
+    return render_template('index.html', form=form, is_pred=is_pred)
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    is_pred = True
     if session.get('my_var', None) == 'M1':
         model = pickle.load(open('models/rForestM1.pkl', 'rb'))
         
@@ -76,6 +83,7 @@ def predict():
                                  'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 'blueTopChampTags', 'redTopChampTags'])
         
         user_response = list(request.form.values())
+        print(user_response)
         
         for i in range(10):
             user_response[i] = tag_dict[str(user_response[i].capitalize())]
@@ -101,7 +109,7 @@ def predict():
         prediction = model.predict_proba([np.array(input_array)])
         output = round(prediction[0][1], 3)
         print('Your probability of winning is: {:.4%} for the input: {}'.format(output, features))
-        return render_template('models.html', prediction_text='Your probability of winning is: {:.3%}'.format(output), form=Form())
+        return render_template('models.html', prediction_text='Your probability of winning is: {:.3%}'.format(output), form=Form(), is_pred=is_pred)
     else:
         model = pickle.load(open('models/rForestM2.pkl', 'rb'))
         
@@ -139,21 +147,23 @@ def predict():
         prediction = model.predict_proba([np.array(input_array)])
         output = round(prediction[0][0], 3)
         print('Your probability of winning is: {:.4%} for the input: {}'.format(output, features))
-        return render_template('models.html', prediction_text='Your probability of winning is: {:.3%}'.format(output), form=Form())
+        return render_template('models.html', prediction_text='Your probability of winning is: {:.3%}'.format(output), form=Form(), is_pred=is_pred)
 
 @app.route('/Model1', methods=['POST', 'GET'])
 def Model1():
+    is_pred = False
     isIndex=False
     session['my_var'] = 'M1'
     form = Form()
-    return render_template('models.html', form=form, isIndex=isIndex)
+    return render_template('models.html', form=form, isIndex=isIndex, is_pred=is_pred)
 
 @app.route('/Model2', methods=['POST', 'GET'])
 def Model2():
+    is_pred = False
     isIndex=True
     session['my_var'] = 'M2'
     form = Form()
-    return render_template('models.html', form=form, isIndex=isIndex)
+    return render_template('models.html', form=form, isIndex=isIndex, is_pred=is_pred)
 
 
 if __name__ == "__main__":

@@ -71,7 +71,7 @@
     z-index: 1;
     left: 16%;
     width: 67%;
-    height: 35%;
+    height: 32%;
 }
 
 .model1button {
@@ -85,7 +85,7 @@
     top: 400px;
     height: 10%;
     width: 20%;
-    font-size: 50px
+    font-size: 35px;
 }
 
 .model2button {
@@ -99,6 +99,7 @@
     top: 400px;
     height: 10%;
     width: 20%;
+    font-size: 35px;
 }
 
 .button_text {
@@ -121,4 +122,16 @@
     z-index: 2;
     top: 730px;
     right: 355px;
+}
+
+.lolbutton {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    left: -1%;
+    width: 102%;
+    top: -5%;
 }

@@ -201,8 +201,8 @@ for title, normalize in titles_options:
     disp.ax_.set_title(title)
 
 # plt.show()
-# '''
-# SVM
+'''
+SVM
 
 Variables:
     redJungleChampTags: Red Champion selection for the Jungle role (string) 
