@@ -32,20 +32,20 @@ body {
     position: relative;
 }
 
-.bg {
+/* .bg {
     height: 100vh;
     width: 100%;
     background-image: url("assets/mainbackground.png");
     background-size: cover;
     box-sizing: border-box;
     position: absolute;
-}
+} */
 
-.col-md-12 {
+/* .col-md-12 {
     font-style: italic;
     text-align: center;
     font-size: x-large;
-}
+} */
 
 .input {
     width: 50%;
@@ -79,84 +79,105 @@ body {
     position: absolute;
     top: 29%;
     left: 8.5%;
+    color: aliceblue;
 }
 
 .redJG {
     position: absolute;
     top: 43.5%;
     left: 6%;
+    color: aliceblue;
 }
 
 .redMid {
     position: absolute;
     top: 56.5%;
     left: 6%;
+    color: aliceblue;
 }
 
 .redAD {
     position: absolute;
     top: 70%;
     left: 6%;
+    color: aliceblue;
 }
 
 .redSup {
     position: absolute;
     top: 83.5%;
     left: 6%;
+    color: aliceblue;
 }
 
 .blueTop {
     position: absolute;
     top: 29%;
     right: 8%;
+    color: aliceblue;
 }
 
 .blueJG {
     position: absolute;
     top: 43.5%;
     right: 8%;
+    color: aliceblue;
 }
 
 .blueMid {
     position: absolute;
     top: 56.5%;
     right: 8%;
+    color: aliceblue;
 }
 
 .blueAD {
     position: absolute;
     top: 70%;
     right: 8%;
+    color: aliceblue;
 }
 
 .blueSup {
     position: absolute;
     top: 83.5%;
     right: 8%;
+    color: aliceblue;
 }
 
 .rKills {
     position: absolute;
     top: 93%;
     left: 7.5%;
+    color: aliceblue;
 }
 
 .rDragons {
     position: absolute;
     top: 98%;
     left: 7.5%;
+    color: aliceblue;
 }
 
 .rHeralds {
     position: absolute;
     top: 103%;
     left: 7.5%;
+    color: aliceblue;
 }
 
 .rTowers {
     position: absolute;
     top: 108%;
     left: 7.5%;
+    color: aliceblue;
+}
+
+.golddiff {
+    position: absolute;
+    top: 113%;
+    left: 7.5%;
+    color: aliceblue;
 }
 
 html, body {
@@ -185,4 +206,22 @@ html, body {
     color: aliceblue;
     z-index: 2;
     width: 40%;
+}
+
+.label {
+    color: aliceblue;
+}
+
+.btnmain {
+    background-color: black;
+    border-color: #725626;
+    border-width: 10px;
+    color: white;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    left: 41.35%;
+    width: 16%;
+    top: 95%;
+    height: 10%;
 }

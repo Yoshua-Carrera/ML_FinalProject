@@ -45,21 +45,23 @@ for role in role_dict:
     role_dict[role] = ast.literal_eval(role_dict[role])
 
 class Form(FlaskForm):
-    redTopChamp = SelectField('redTopChamp', choices=[(champ, champ) for champ in role_dict['Top']])
-    redJungleChamp = SelectField('redJungleChamp', choices=[(champ, champ) for champ in role_dict['Jungle']])
-    redMiddleChamp = SelectField('redMiddleChamp', choices=[(champ, champ) for champ in role_dict['Middle']])
-    redADCChamp = SelectField('redADCChamp', choices=[(champ, champ) for champ in role_dict['ADC']])
-    redSupportChamp = SelectField('redSupportChamp', choices=[(champ, champ) for champ in role_dict['Support']])
-    blueTopChamp = SelectField('redTopChamp', choices=[(champ, champ) for champ in role_dict['Top']])
-    blueJungleChamp = SelectField('redJungleChamp', choices=[(champ, champ) for champ in role_dict['Jungle']])
-    blueMiddleChamp = SelectField('redMiddleChamp', choices=[(champ, champ) for champ in role_dict['Middle']])
-    blueADCChamp = SelectField('redADCChamp', choices=[(champ, champ) for champ in role_dict['ADC']])
-    blueSupportChamp = SelectField('redSupportChamp', choices=[(champ, champ) for champ in role_dict['Support']])
-
+    redTopChamp = SelectField('Red Top', choices=[(champ, champ) for champ in role_dict['Top']])
+    redJungleChamp = SelectField('Red Jungle', choices=[(champ, champ) for champ in role_dict['Jungle']])
+    redMiddleChamp = SelectField('Red Middle', choices=[(champ, champ) for champ in role_dict['Middle']])
+    redADCChamp = SelectField('Red ADC', choices=[(champ, champ) for champ in role_dict['ADC']])
+    redSupportChamp = SelectField('Red Support', choices=[(champ, champ) for champ in role_dict['Support']])
+    blueTopChamp = SelectField('blue Top', choices=[(champ, champ) for champ in role_dict['Top']])
+    blueJungleChamp = SelectField('blue Jungle', choices=[(champ, champ) for champ in role_dict['Jungle']])
+    blueMiddleChamp = SelectField('blue Middle', choices=[(champ, champ) for champ in role_dict['Middle']])
+    blueADCChamp = SelectField('blue ADC', choices=[(champ, champ) for champ in role_dict['ADC']])
+    blueSupportChamp = SelectField('blue Support', choices=[(champ, champ) for champ in role_dict['Support']])
+    
     rKills = SelectField('Red kills', choices=[(champ, champ) for champ in range(16)])
     rDragons = SelectField('Red Dragons Slayed', choices=[(champ, champ) for champ in range(4)])
     rHeralds = SelectField('Red Heralds Slayed', choices=[(champ, champ) for champ in range(2)])
     rTowers = SelectField('Red Towers Taken', choices=[(champ, champ) for champ in range(7)])
+
+    golddiff = SelectField('Gold difference', choices=[(champ, champ) for champ in np.arange(-10000, 10100, 100)])
 
 @app.route('/', methods=['GET', 'POST'])
 def home():

@@ -7,65 +7,60 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg" src='../static/styles/assets/homebg.jpg'>
-    <div class="col-md-12">
-        <h1>Welcome to League of Legend Win Prediction!</h1>
-    </div>
+<body>
     <form action="{{url_for('predict')}}" method="POST">
         
         <img class="row" src="../static/styles/assets/league_nice.png">
 
             <div class="left-col">
                 
-                <span class="redTop"> <!-- {{ form.csrf_token }} --> {{ form.redTopChamp }} </span>
-                <span class="redJG"> {{ form.redJungleChamp }} </span>
-                <span class="redMid"> {{ form.redMiddleChamp }} </span>
-                <span class="redAD"> {{ form.redADCChamp }} </span>
-                <span class="redSup"> {{ form.redSupportChamp }} </span>
+                <span class="redTop"> {{ form.redTopChamp.label }}<br>{{ form.redTopChamp }} </span>
+                <span class="redJG"> {{ form.redJungleChamp.label }}<br>{{ form.redJungleChamp }}</span>
+                <span class="redMid"> {{ form.redMiddleChamp.label }}<br>{{ form.redMiddleChamp }} </span>
+                <span class="redAD"> {{ form.redADCChamp.label }}<br>{{ form.redADCChamp }} </span>
+                <span class="redSup"> {{ form.redSupportChamp.label }}<br>{{ form.redSupportChamp }} </span>
             
             </div>
 
-            <span class="right-col">
+            <div class="right-col">
 
-                <span class="blueTop"> {{ form.blueTopChamp }} </span>
-                <span class="blueJG"> {{ form.blueJungleChamp }} </span>
-                <span class="blueMid"> {{ form.blueMiddleChamp }} </span>
-                <span class="blueAD"> {{ form.blueADCChamp }} </span>
-                <span class="blueSup"> {{ form.blueSupportChamp }} </span>
+                <span class="blueTop"> {{ form.blueTopChamp.label }}<br>{{ form.blueTopChamp }} </span>
+                <span class="blueJG"> {{ form.blueJungleChamp.label }}<br>{{ form.blueJungleChamp }} </span>
+                <span class="blueMid"> {{ form.blueMiddleChamp.label }}<br>{{ form.blueMiddleChamp }} </span>
+                <span class="blueAD"> {{ form.blueADCChamp.label }}<br>{{ form.blueADCChamp }} </span>
+                <span class="blueSup"> {{ form.blueSupportChamp.label }}<br>{{ form.blueSupportChamp }} </span>
 
                                 
-                <span class="rkills"> {{ form.rKills }} </span>
-                <span class="rDragons"> {{ form.rDragons }} </span>
-                <span class="rHeralds"> {{ form.rHeralds }} </span>
-                <span class="rTowers"> {{ form.rTowers }} </span>
+                <span class="rkills"> {{ form.rKills.label }} &nbsp;&nbsp;&nbsp;&nbsp; {{ form.rKills }} </span>
+                <span class="rDragons"> {{ form.rDragons.label }} &nbsp;&nbsp;&nbsp;&nbsp; {{ form.rDragons }} </span>
+                <span class="rHeralds"> {{ form.rHeralds.label }} &nbsp;&nbsp;&nbsp;&nbsp; {{ form.rHeralds }} </span>
+                <span class="rTowers"> {{ form.rTowers.label }} &nbsp;&nbsp;&nbsp;&nbsp; {{ form.rTowers }} </span>
 
                 {% if isIndex %}
-                <input type="text" name="GoldDiff" placeholder ="Gold Difference"style="text-align: center; position: absolute" required="required"/>
+                <span class="golddiff"> {{ form.golddiff.label }} &nbsp;&nbsp;&nbsp;&nbsp; {{ form.golddiff }} </span>
                 {% endif %}
 
             </div>
 
             {% if is_pred %}
             <img src="../static/styles/assets/lolbutton.png" class="lolbutton">
-            <div class="result">
-                {{prediction_text}}
-            </div>
+            <div class="result"> {{prediction_text}} </div>
             {% endif %}
 
-        </div>
-        <div class="col-md-12">
-        {% if not is_pred %}
-        <div class="btn">
-            <button type="submit" class="btn btn-primary" style="font-size: 25px;">Predict!</button>
-        </div>
-        {% endif %}
+            {% if not is_pred %}
+            <button type="submit" class="btnmain" style="font-size: 25px;">Predict!</button>
+            {% endif %}
+        
     </form>
     {% if is_pred %}
     <form action="{{url_for('home')}}" method="POST">
-        <div class="btn">
-            <button type="submit" class="btn btn-primary" style="font-size: 25px;">Go back!</button>
+        <div>
+            {{is_pred}}
         </div>
+            {% if is_pred %}
+            <button type="submit" class="btnmain" style="font-size: 25px;">Go back!</button>
+            {% endif %}
     </form>
     {% endif %}
-    </body>
+</body>
 </html>
