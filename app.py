@@ -74,7 +74,7 @@ def home():
 def predict():
     is_pred = True
     if session.get('my_var', None) == 'M1':
-        model = pickle.load(open('models/rForestM1.pkl', 'rb'))
+        model = pickle.load(open('models/svm1.pkl', 'rb'))
         
         x_cols = ['blueJungleChampTags', 'redJungleChampTags', 'blueMiddleChampTags', 'redMiddleChampTags', 'blueADCChampTags', 
         'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 'blueTopChampTags', 'redTopChampTags', 
@@ -88,7 +88,7 @@ def predict():
         print(user_response)
         
         for i in range(10):
-            user_response[i] = tag_dict[str(user_response[i].capitalize())]
+            user_response[i] = tag_dict[str(user_response[i])]
         
         features = [y+x if y != '' else int(x) for x, y in zip(user_response, ['redTopChampTags_', 'redJungleChampTags_', 'redMiddleChampTags_', 'redADCChampTags_', 'redSupportChampTags_', 
                                                                             'blueTopChampTags_', 'blueJungleChampTags_', 'blueMiddleChampTags_', 'blueADCChampTags_', 'blueSupportChampTags_', 
@@ -113,7 +113,7 @@ def predict():
         print('Your probability of winning is: {:.4%} for the input: {}'.format(output, features))
         return render_template('models.html', prediction_text='Your probability of winning is: {:.3%}'.format(output), form=Form(), is_pred=is_pred)
     else:
-        model = pickle.load(open('models/rForestM2.pkl', 'rb'))
+        model = pickle.load(open('models/svm2.pkl', 'rb'))
         
         x_cols = ['blueJungleChampTags', 'redJungleChampTags', 'blueMiddleChampTags', 'redMiddleChampTags', 'blueADCChampTags', 
         'redADCChampTags', 'blueSupportChampTags', 'redSupportChampTags', 'blueTopChampTags', 'redTopChampTags', 
@@ -126,7 +126,7 @@ def predict():
         user_response = list(request.form.values())
         print(user_response)
         for i in range(10):
-            user_response[i] = tag_dict[str(user_response[i].capitalize())]
+            user_response[i] = tag_dict[str(user_response[i])]
         
         features = [y+x if y != '' else int(x) for x, y in zip(user_response, ['redTopChampTags_', 'redJungleChampTags_', 'redMiddleChampTags_', 'redADCChampTags_', 'redSupportChampTags_', 
                                                                             'blueTopChampTags_', 'blueJungleChampTags_', 'blueMiddleChampTags_', 'blueADCChampTags_', 'blueSupportChampTags_', 
@@ -169,4 +169,5 @@ def Model2():
 
 
 if __name__ == "__main__":
+    # app.run(host='0.0.0.0', port=8080)
     app.run(debug=True)

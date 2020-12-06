@@ -68,10 +68,10 @@ for cols in df.columns:
 
 df.to_csv('LOL/Clean_LeagueofLegends.csv')
 
-champion_tags = {}
+# champion_tags = {}
 
-for row in range(len(df_champs)):
-    champion_tags[df_champs['name'][row]] = champion_tags[df_champs['tags'][row]]
+# for row in range(len(df_champs)):
+#     champion_tags[df_champs['id'][row]] = champion_tags[df_champs['tags'][row]]
 
 
 # with open('championdata/Champion_tag.json', 'w') as fp:
@@ -80,10 +80,10 @@ for row in range(len(df_champs)):
 champion_tags = {}
 
 for row in range(len(df_champs)):
-    champion_tags[df_champs['name'][row]] = df_champs['tags'][row]
+    champion_tags[df_champs['id'][row]] = df_champs['tags'][row]
 
-# with open('championdata/Champion_tag.json', 'w') as fp:
-#     json.dump(champion_tags, fp, indent=4)
+with open('championdata/Champion_tag.json', 'w') as fp:
+    json.dump(champion_tags, fp, indent=4)
 
 champion_roles = {}
 
